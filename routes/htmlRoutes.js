@@ -20,6 +20,11 @@ module.exports = function(app) {
   //   });
   // });
 
+  // route for rendering login HTML
+  app.get('/login', (req,res) => {
+    res.render('login');
+  })
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");

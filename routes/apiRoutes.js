@@ -21,4 +21,12 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
+
+  app.get('/check-login', (req,res) => {
+    let username = req.query.username;
+    let password = req.query.password;
+    console.log(username, password);
+    
+    res.send({username: username, password: password});
+  })
 };

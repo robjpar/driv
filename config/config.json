@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "exampledb",
+    "password": "cheese",
+    "database": "referraldata_db",
     "host": "localhost",
     "dialect": "mysql"
   },

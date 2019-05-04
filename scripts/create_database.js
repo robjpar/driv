@@ -3,9 +3,9 @@
  */
 
 const mysql = require('mysql');
-const dbconfig = require('../config/database');
+const db = require('./models');
 
-const connection = mysql.createConnection(dbconfig.connection);
+const connection = mysql.createConnection(db.connection);
 
 connection.query('\
 CREATE TABLE `referraldata_db`.`users` ( \

@@ -1,28 +1,11 @@
-// var db = require('../models');
+var passport = require('passport');
 
-// module.exports = function(app) {
-//   // Load login page
-//   app.get('/login', (req,res) => {
-//     res.render('login', {
-//       msg: 'Welcome!',
-//       examples: dbExamples
-//     });
-//   });
-  
-//   // process the login form
-//   app.post('/login', passport.authenticate('local-login', {
-//     successRedirect : '/profile', // redirect to the secure profile section
-//     failureRedirect : '/login', // redirect back to the signup page if there is an error
-//     failureFlash : true // allow flash messages
-//   }),
-//   (req,res) => {
-//     console.log('hello');
-
-//     if (req.body.remember) {
-//       req.session.cookie.maxAge = 1000 * 60 * 3;
-//     } else {
-//       req.session.cookie.expires = false;
-//     }
-//     res.redirect('/');
-//   });
-// };
+module.exports = function(app) {
+  // Load login page
+  app.post('/api/login', passport.authenticate('local'), function(req, res) {
+    // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
+    // So we're sending the user back the route to the members page because the redirect will happen on the front end
+    // They won't get this or even be able to access this page if they aren't authed
+    res.json('/');
+  });
+};

@@ -1,15 +1,26 @@
-<div id="404css" class="container">
-  <div class="jumbotron mt-4 pt-4 shadow p-3 mb-5 rounded bg-transparent">
-    <img src="/styles/drivlogo.png" id="driv404" class="img-fluid center">
-    <hr>
-    <h2 class="text-center">Whatever it was you wanted, isn't here, so play some Pong!</h2>
-    <div>
-      <center>
-        <canvas id="pong" width="600" height="400" style="z-index: 1"></canvas>
-      </center>
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark text-light">
+  <img id="driv404" src="/styles/drivlogo.png">
+</nav>
+
+<div id="404css" class="container mt-5">
+  <div class="row">
+    <div class="mx-auto">
+      <div class="card my-5 shadow">
+        <div class="card-body rounded text-dark">
+          <h1 class="text-center">404</h1>
+          <h2 class="text-center">What you wanted isn't here, but Pong is!</h2>
+          <div>
+            <center>
+              <canvas id="pong" width="600" height="400"></canvas>
+            </center>
+            <p class="text-center">Use your mouse/trackpad to move the left paddle up and down.</p>
+          </div>
+          <a href="/">← Back To Home</a>
+        </div>
+      </div>
     </div>
-    <a href="/">← Back To Home</a>
   </div>
 </div>
 
-<script src="/public/js/pong.js"></script>
+{{!--script for pong --}}
+<script src="/js/pong.js"></script>

@@ -11,16 +11,35 @@
     <div class="row">
       <div class="col-8 offset-2">
         <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
-          </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
+        <h2>D.R.I.V.</h2>
+
+          <form>
+            <div class="form-group">
+              <h2>Choose Referral Type</h2>
+              <label for="referral-type">Referral Type</label>
+              <select class="form-control" id="referral-type">
+                <option>Referred donors</option>
+                <option>Missed potential donors</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h2>Choose Age</h2>
+              Age: <b>0</b> <input id="age" type="text" class="span2" value="" data-slider-min="0" data-slider-max="80" data-slider-step="1" data-slider-value="[250,450]"/> <b>80</b>
+            </div>
+            <div class="form-check" id="hospitals">
+              <h2>Choose Hospital</h2>
+              <input class="form-check-input" type="checkbox" value="" id="hospitals">
+              <label class="form-check-label" for="hospitals">
+                Default checkbox
+              </label>
+            </div>
+            <div class="form-check" id="needs-followup">
+              <h2>Only include cases that need follow-up</h2>
+              <input class="form-check-input" type="checkbox" value="" id="needs-followup">
+              <label class="form-check-label" for="needs-followup">
+                Include cases that need follow-up
+              </label>
+            </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
         <h3>Examples:</h3>
@@ -39,3 +58,14 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
+
+{{!-- var slider = document.getElementById('slider');
+
+noUiSlider.create(slider, {
+    start: [20, 80],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+}); --}}

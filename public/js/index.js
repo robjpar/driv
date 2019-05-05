@@ -1,13 +1,14 @@
 // Get references to page elements
+
 var $referralInformation = $('#referral-type');
-// var slider = new Slider('#age', {});
-var $hospitals = $("#hospitals")
+var $ageMin = $("#min-age-input");
+var $ageMax = $("#max-age-input");
+var $hospitals = $("#hospitals");
+var $displayedHospitals = $(".hospitals");
+var $needsFollowup = $("#needs-followup");
 var $exampleDescription = $('#example-description');
 var $submitBtn = $('#submit');
 var $exampleList = $('#example-list');
-// $("#ex2").slider({});
-
-
 
 
 // The API object contains methods for each kind of request we'll make
@@ -24,7 +25,7 @@ var API = {
   },
   getExamples: function() {
     return $.ajax({
-      url: 'api/examples',
+      url: 'api/request',
       type: 'GET'
     });
   },
@@ -43,7 +44,6 @@ var API = {
 };
 
 function displayHospitals() {
-  // $("#age").slider({});
   API.getHospitals().then(function(data) {
     let hospitalList = [];
     let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
@@ -60,7 +60,7 @@ function createHospitalRow(hospitalData, idNumber) {
   // var container = $('#cblist');
   //  var inputs = container.find('input');
 
-  var newHospital = $('<br><input class="form-check-input" type="checkbox" value="" id="'+ idNumber +'"><label class="form-check-label" for="' + idNumber +'">'+ hospitalData + '</label>');   
+  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
   return newHospital;
 }
 
@@ -103,22 +103,33 @@ var refreshExamples = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  // checkValues();
+
+  // function checkValues() {
+  //   if (ageMin )
+  // }
+
+  var userRequest = {
+    referralType: $referralInformation.val().trim(),
+    ageMin: parseInt($ageMin.val()),
+    ageMax: parseInt($ageMax.val()),
+    hospitals: $displayedHospitals.attr("id"),
+    needsFollowup: $needsFollowup.val().trim(),
   };
 
-  if (!(example.text && example.description)) {
-    alert('You must enter an example text and description!');
-    return;
-  }
+  // if (!referralType) {
+  //   alert('You must enter an example text and description!');
+  //   return;
+  // }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
-  });
+  console.log(userRequest);
 
-  $exampleText.val('');
-  $exampleDescription.val('');
+  // API.getExamples(userRequest).then(function() {
+  //   refreshExamples();
+  // });
+
+  // $exampleText.val('');
+  // $exampleDescription.val('');
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked

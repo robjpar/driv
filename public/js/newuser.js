@@ -1,8 +1,9 @@
 $(document).ready(function() {
-  function signUpUser(email, password) {
+  function signUpUser(email, password, admin) {
     $.post('/api/new-user', {
       email: email,
-      password: password
+      password: password,
+      admin: admin
     }).then(function(data) {
       alert(data);
       window.location.replace(data);
@@ -15,13 +16,14 @@ $(document).ready(function() {
     event.preventDefault();
     var userData = {
       email: $('#email-input').val().trim(),
-      password: $('#password-input').val().trim()
+      password: $('#password-input').val().trim(),
+      admin: $('#is-admin').val().trim()
     };
     if (!userData.email || !userData.password) {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password);
+    signUpUser(userData.email, userData.password, userData.admin);
     $('#email-input').val('');
     $('#password-input').val('');
   });

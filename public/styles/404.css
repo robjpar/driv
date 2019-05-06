@@ -3,7 +3,7 @@ body {
 }
 
 #driv404 {
-    height: 150px;
+    height: 75px;
 }
 
 .center {
@@ -13,24 +13,20 @@ body {
    width: 50%;
 }
 
-.jumbotron {
-    background: #2ab4f8;
-}
-
-* {
-    color: #ffffff;
+.card-body {
+    background: #b3e3fc;
 }
 
 a:link {
-    color: #ffffff;
+    color: #343a40;
 }
   
 a:visited {
-   color: #ffffff;
+   color: #343a40;
 }
   
 a:hover {
-   color: #ffffff;
+   color: #343a40;
 }
 
 a:active {

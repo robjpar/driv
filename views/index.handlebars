@@ -1,3 +1,8 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark text-light justify-content-between">
+    <img id="drivloginimg" src="/styles/drivlogo.png">
+    <a class="btn btn-info btn-sm float-right" href="#" role="button">Admin</a>
+</nav>
+
 <div id="home">
   <div class="header">
   <a href="#default" class="logo"><i class="fas fa-band-aid"></i>CompanyLogo</a>
@@ -14,22 +19,48 @@
         <h2>D.R.I.V.</h2>
 
           <form>
-            <div class="form-group">
-              <label for="referral-type">Referral Type</label>
-              <select class="form-control" id="referral-type">
-                <option>Referred donors</option>
-                <option>Missed potential donors</option>
-              </select>
-            </div>
-              Age: <b>0</b> <input id="age" type="text" class="span2" value="" data-slider-min="0" data-slider-max="80" data-slider-step="1" data-slider-value="[250,450]"/> <b>80</b>
-
-            <div class="form-check" id="hospitals">
-              <input class="form-check-input" type="checkbox" value="" id="hospitals">
-              <label class="form-check-label" for="hospitals">
-                Default checkbox
-              </label>
-            </div>>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
+            <div class="row">
+              <div class="col-3">
+                <div class="form-group">
+                  <h5>Choose Referral Type</h5>
+                  <label for="referral-type">Referral Type</label>
+                  <select class="form-control" id="referral-type">
+                    <option>Referred donors</option>
+                    <option>Missed potential donors</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-3">
+                <h5>Choose Age</h5>
+                <div class="form-group">
+                  <label for="min-age-input" class="col-2 col-form-label">Minimum age</label>
+                    <input class="form-control" type="number" value="" id="min-age-input">
+                </div>
+                <div class="form-group">
+                  <label for="max-age-input" class="col-2 col-form-label">Maximum age</label>
+                    <input class="form-control" type="number" value="" id="max-age-input">
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-check" id="hospitals">
+                  <h5>Choose Hospital</h5>
+                  {{!-- <input class="form-check-input" type="checkbox" value="" id="example">
+                  <label class="form-check-label" for="hospitals">
+                    Default checkbox
+                  </label> --}}
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-check" id="needs-followup">
+                  <h5>Follow-up</h5>
+                  <input class="form-check-input" type="checkbox" value="" id="needs-followup">
+                  <label class="form-check-label" for="needs-followup">
+                    Include cases that need follow-up
+                  </label>
+                </div>
+              </div>
+            <button id="submit" class="btn btn-primary float-right">Submit</button>
+          </div>
         </form>
         <h3>Examples:</h3>
         <ul id="example-list" class="list-group">

@@ -22,3 +22,10 @@
   padding: 1rem;
   transition: all 0.2s;
 }
+
+/* new user form css */
+#new-user-form {
+  background: #343a40;
+  padding: 40px 25px;
+  border-radius: 25px;
+}

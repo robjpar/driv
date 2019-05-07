@@ -1,0 +1,40 @@
+﻿EyeDonorId,Referral Type,ReferredOn,Age,AgeUnits,AdmissionDiagnosis,PreliminaryCauseOfDeath,Asystol Death PCT,ReferredOnVent,RemovedFromVentPriorToReferral?,Extubation PCT,WasHeartBeatingg?,Referring Organization
+R1902500,TE,2/25/2019 8:09,54,Y,Sepsis 2/2 ETOH Hepatitis,,2/24/2019 23:10,No,No,,No,Good Samaritan Medical Center - Corvallis
+R1902501,TE,2/25/2019 8:09,72,Y,Flare of ILD,Interstitial Lung disease,2/24/2019 23:40,No,No,,No,Kaiser Sunnyside Medical Center
+R1902502,RO,2/25/2019 8:47,81,Y,metabolic acidosis,Metabolic Acidosis,2/24/2019 23:22,No,No,,No,St. John's Medical Center
+R1902503,OTE,2/25/2019 9:00,56,Y,Cerebral hemorrhage,Subarachnoid Hemorrhage.,2/27/2019 1:26,Yes,Yes,2/27/2019 1:10,Yes,Providence St. Vincent Medical Center
+R1902504,E,2/25/2019 9:18,92,Y,"sepsis, hypoxia, CHF exacerbation","CAP, Respiratory Failure",2/25/2019 0:16,No,No,,No,Salem Hospital
+R1902505,TE,2/25/2019 9:44,40,Y,MVC,Trauma,2/24/2019 22:55,No,No,,No,Other 911
+R1902506,E,2/25/2019 10:01,93,Y,Ischemic Bowel,Ischemic Bowel,2/25/2019 1:28,No,No,,No,Legacy Meridian Park Hospital
+R1902507,TE,2/25/2019 10:18,75,Y,,Septic Shock and AKI due to ischemic bowel.,2/25/2019 2:11,No,Yes,2/24/2019 17:00,No,Providence Willamette Falls Medical Center
+R1902508,TE,2/25/2019 13:19,55,Y,,COPD,2/25/2019 5:15,No,No,,No,Providence St. Vincent Medical Center
+R1902509,TE,2/25/2019 14:29,43,Y,Weakness / Failure to thrive,Resp failure/ 2/2 Lung CA,2/25/2019 5:30,No,No,,No,Portland Adventist Medical Center
+R1902510,RO,2/25/2019 14:48,0,D,Preterm labor/ Fetal Demise,,2/25/2019 4:40,Yes,No,,No,St. Alphonsus Medical Center - Nampa
+R1902511,E,2/25/2019 15:29,93,Y,CVA,CVA,2/25/2019 6:55,No,No,,No,Ashland Community Hospital
+R1902512,TE,2/25/2019 17:11,76,Y,Resp failure,Respiratory Failure,2/25/2019 8:20,No,No,,No,Kaiser Sunnyside Medical Center
+R1902513,TE,2/25/2019 17:18,63,Y,,,2/25/2019 4:21,No,No,,No,Rogue Regional Medical Center
+R1902514,TE,2/25/2019 18:23,65,Y,,Resp Failure 2/2 Mesothelioma,2/25/2019 10:10,No,No,,No,Willamette Valley Medical Center
+R1902515,E,2/25/2019 18:37,100,Y,,,2/9/2019 18:15,No,No,,No,Clark County Medical Examiner
+R1902516,OTE,2/25/2019 19:09,34,Y,"hepatic encephalopathy, sepsis",multi organ failure 2/2 Bacteremia,2/26/2019 4:45,Yes,No,,Yes,Good Samaritan Medical Center - Corvallis
+R1902517,E,2/25/2019 19:15,90,Y,,Severe Sepsis,2/25/2019 10:45,No,No,,No,Legacy Meridian Park Hospital
+R1902518,TE,2/25/2019 19:47,52,Y,,Cardiac Arrest,2/25/2019 11:15,No,Yes,2/25/2019 11:15,No,PeaceHealth Southwest Medical Center
+R1902519,TE,2/25/2019 21:11,36,Y,,Sepsis,2/25/2019 12:58,No,Yes,2/25/2019 12:00,No,St. Luke's Regional Medical Center
+R1902520,TE,2/25/2019 21:15,77,Y,,,,No,No,,No,Clark County Medical Examiner
+R1902521,E,2/25/2019 21:39,89,Y,,,2/25/2019 11:50,No,No,,No,Clark County Medical Examiner
+R1902522,E,2/25/2019 22:02,84,Y,,,2/25/2019 11:50,No,No,,No,Clark County Medical Examiner
+R1902523,E,2/25/2019 23:20,88,Y,UTI/Sepis after Fall,Respiratory Failure,2/25/2019 13:50,No,No,,No,Legacy Salmon Creek
+R1902524,OTE,2/25/2019 23:57,68,Y,Cardiac Arrest,Cardiac Arrest,2/26/2019 12:50,Yes,No,,Yes,Legacy Emanuel Hospital
+R1902525,TE,2/26/2019 0:25,55,Y,"cardiomyopathy, HF",Systolic heart failure,2/25/2019 15:10,No,No,,No,St. Charles Medical Center - Madras
+R1902526,TE,2/26/2019 0:38,79,Y,,Cardiac Arrest,2/25/2019 16:05,No,No,,No,Legacy Meridian Park Hospital
+R1902527,TE,2/26/2019 0:52,73,Y,Afib w/ RVR,MSOF,2/19/2019 15:31,No,Yes,2/25/2019 0:00,No,St. John's Medical Center
+R1902528,TE,2/26/2019 0:58,70,Y,ETOH Withdrawl and changes in mental status,Cardiac Arrest,2/25/2019 15:35,No,No,,No,PeaceHealth Southwest Medical Center
+R1902529,TE,2/26/2019 1:25,64,Y,RUQ Abdominal Pain,Repsiratory Arrest/Cardiac Arrest,2/25/2019 16:50,No,No,,No,Good Samaritan Medical Center - Corvallis
+R1902530,TE,2/26/2019 1:40,62,Y,,Heart Failure,2/25/2019 15:29,No,No,,No,Good Samaritan Medical Center - Corvallis
+R1902531,TE,2/26/2019 2:41,49,Y,headache and emesis without nausea,Cerebellar Stroke,2/25/2019 18:05,No,No,,No,St. Luke's Regional Medical Center
+R1902532,RO,2/26/2019 2:54,99,Y,,Respiratory Failure,2/25/2019 18:30,No,No,,No,Valor Health Memorial Hospital
+R1902533,E,2/26/2019 3:48,84,Y,SDH,SDH,2/25/2019 19:25,No,No,,No,Mercy Roseburg
+R1902534,E,2/26/2019 3:55,87,Y,respiratory failure,Respiratory Failure,2/25/2019 19:43,No,No,,No,Portland VA Healthcare System
+R1902535,TE,2/26/2019 4:19,64,Y,,Cardiac Arrest,2/25/2019 17:28,No,No,,No,St. John's Medical Center
+R1902536,TE,2/26/2019 4:19,65,Y,"hepatic encep, PNA, UTI, Chronic renal failure","PNA, Chronic liver Failure",2/25/2019 20:04,No,No,,No,Salem Hospital
+R1902537,TE,2/26/2019 4:23,59,Y,,CHF,2/25/2019 20:08,No,No,,No,Sky Lakes Medical Center
+R1902538,TE,2/26/2019 5:29,58,Y,non sm cell lung cancer,non sm cell lung cancer,2/25/2019 20:00,No,No,,No,Providence Portland Medical Center

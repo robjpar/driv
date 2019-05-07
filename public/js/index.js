@@ -73,7 +73,7 @@ function displayHospitals() {
 function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
-  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
   return newHospital;
 }
 

@@ -60,7 +60,7 @@ function createHospitalRow(hospitalData, idNumber) {
   // var container = $('#cblist');
   //  var inputs = container.find('input');
 
-  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
   return newHospital;
 }
 

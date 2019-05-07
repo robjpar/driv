@@ -1,6 +1,9 @@
 // Get references to page elements
 var $referralInformation = $('#referral-type');
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e9df151c64cacddac08b4c075368d915ea5fe25d
 var $ageMin = $("#min-age-input");
 var $ageMax = $("#max-age-input");
 var $hospitals = $("#hospitals");
@@ -8,11 +11,15 @@ var $displayedHospitals = $(".hospitals");
 var dynamicallyCreatedHospitals = [];
 var $needsFollowup = $("#needs-followup");
 var $exampleDescription = $('#example-description');
+<<<<<<< HEAD
 =======
 // var slider = new Slider('#age', {});
 var $hospitals = $("#hospitals")
 // var $exampleDescription = $('#example-description');
 >>>>>>> master
+=======
+
+>>>>>>> e9df151c64cacddac08b4c075368d915ea5fe25d
 var $submitBtn = $('#submit');
 // var $exampleList = $('#example-list');
 // $("#ex2").slider({});
@@ -76,6 +83,7 @@ function displayHospitals() {
 
 function createHospitalRow(hospitalData, idNumber) {
   console.log(hospitalData);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
   var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
@@ -85,6 +93,10 @@ function createHospitalRow(hospitalData, idNumber) {
 
   var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
 >>>>>>> master
+=======
+  
+  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
+>>>>>>> e9df151c64cacddac08b4c075368d915ea5fe25d
   return newHospital;
 }
 
@@ -133,6 +145,9 @@ loadAdminButton = () => {
 //   event.preventDefault();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e9df151c64cacddac08b4c075368d915ea5fe25d
   // function checkValues() {
   //   if (ageMin )
   // }
@@ -150,6 +165,7 @@ loadAdminButton = () => {
     hospitals: [queryHospitals],
     needsFollowup: $needsFollowup.val().trim(),
   };
+<<<<<<< HEAD
 =======
 //   var example = {
 //     text: $exampleText.val().trim(),
@@ -161,6 +177,8 @@ loadAdminButton = () => {
 //     return;
 //   }
 >>>>>>> master
+=======
+>>>>>>> e9df151c64cacddac08b4c075368d915ea5fe25d
 
 //   API.saveExample(example).then(function() {
 //     refreshExamples();

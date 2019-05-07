@@ -50,6 +50,11 @@ db.sequelize.sync(syncOptions).then(function() {
     password: '77!*zxc',
     admin: 1
   });
+  db.User.create({
+    email: 'ryan@test.com',
+    password: '1234',
+    admin: 0
+  });
   app.listen(PORT, function() {
     console.log('Go to http://localhost:3000/ to see where the magic happens');
   });

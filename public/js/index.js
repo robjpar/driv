@@ -5,6 +5,7 @@ var $ageMin = $("#min-age-input");
 var $ageMax = $("#max-age-input");
 var $hospitals = $("#hospitals");
 var $displayedHospitals = $(".hospitals");
+var dynamicallyCreatedHospitals = [];
 var $needsFollowup = $("#needs-followup");
 var $exampleDescription = $('#example-description');
 var $submitBtn = $('#submit');
@@ -48,19 +49,18 @@ function displayHospitals() {
     let hospitalList = [];
     let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
     for (var i = 0; i < dummyHospitalList.length; i++) {
+      dynamicallyCreatedHospitals.push(dummyHospitalList[i]);
       hospitalList.push(createHospitalRow(dummyHospitalList[i], i));
     }
     renderHospitalList(hospitalList);
+    console.log(dynamicallyCreatedHospitals);
   })
 }
 
 function createHospitalRow(hospitalData, idNumber) {
   console.log(hospitalData);
 
-  // var container = $('#cblist');
-  //  var inputs = container.find('input');
-
-  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
+  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
   return newHospital;
 }
 
@@ -108,12 +108,18 @@ var handleFormSubmit = function(event) {
   // function checkValues() {
   //   if (ageMin )
   // }
+  let queryHospitals = [];
+  for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
+    if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
+      queryHospitals.push(dynamicallyCreatedHospitals[i])
+    }
+  }
 
   var userRequest = {
     referralType: $referralInformation.val().trim(),
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: $displayedHospitals.attr("id"),
+    hospitals: [queryHospitals],
     needsFollowup: $needsFollowup.val().trim(),
   };
 

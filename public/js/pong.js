@@ -116,7 +116,7 @@ function collisionDetection(b, p) {
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.speed = 7;
+    ball.speed = 9;
     ball.velocityX = -ball.velocityX;
 }
 
@@ -148,7 +148,7 @@ function update() {
         ball.velocityX = direction * ball.speed * Math.cos(angleRad);
         ball.velocityY = ball.speed * Math.sin(angleRad);
         // INCREASE BALL SPEED ON PADDLE CONTACT
-        ball.speed += 0.1;
+        ball.speed += 0.3;
     };
 
     // UPDATE THE SCORE
@@ -170,3 +170,20 @@ function game() {
 // LOOP
 const framePerSecond = 50;
 setInterval(game, 1000 / framePerSecond);
+
+
+// Nav Buttons
+loadAdminButton = () => {
+    let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+    $('.navbar').append(adminBtn);
+  }
+  
+  loadLogoutButton = () => {
+    let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+    $('.navbar').append(logoutBtn);
+  }
+
+$(document).ready(() => {
+        loadAdminButton();
+        loadLogoutButton();
+  });

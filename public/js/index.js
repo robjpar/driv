@@ -5,6 +5,7 @@ var $ageMax = $("#max-age-input");
 var $hospitals = $("#hospitals");
 var $displayedHospitals = $(".hospitals");
 var dynamicallyCreatedHospitals = [];
+var queryHospitals = [];
 var $needsFollowup = $("#needs-followup");
 var $exampleDescription = $('#example-description');
 
@@ -28,12 +29,12 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  // getExamples: function() {
-  //   return $.ajax({
-  //     url: 'api/examples',
-  //     type: 'GET'
-  //   });
-  // },
+  getData: function(query) {
+    return $.ajax({
+      url: 'api/data',
+      type: 'GET'
+    });
+  },
   getHospitals: function() {
     return $.ajax({
       url: 'api/hospitals',
@@ -65,14 +66,14 @@ function displayHospitals() {
       hospitalList.push(createHospitalRow(dummyHospitalList[i], i));
     }
     renderHospitalList(hospitalList);
-    console.log(dynamicallyCreatedHospitals);
+    // console.log(dynamicallyCreatedHospitals);
   })
 }
 
 function createHospitalRow(hospitalData, idNumber) {
-  console.log(hospitalData);
-  
-  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
+  // console.log(hospitalData);
+
+  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
   return newHospital;
 }
 
@@ -115,32 +116,50 @@ loadAdminButton = () => {
 //   });
 // };
 
+$(".form-check-input.hospitals").on("click", function() {
+    console.log("it's Working!");
+    console.log($(this).val());
+    if ($(this).val() === false) {
+      $(this).val() = true;
+      queryHospitals.push($(this).data("id"))
+    } else {
+      $(this).val() = false
+      for (var i = 0; i < queryHospitals.length; i++) {
+        if (queryHospitals[i] === $(this).data("id")) {
+          queryHospitals.splice(i, 1)
+        }
+      }
+    }
+  })
+
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-// var handleFormSubmit = function(event) {
+var handleFormSubmit = function(event) {
 //   event.preventDefault();
+  console.log(queryHospitals);
 
-  // function checkValues() {
-  //   if (ageMin )
+  // for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
+  //   if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
+  //     queryHospitals.push(dynamicallyCreatedHospitals[i])
+  //   }
   // }
-  let queryHospitals = [];
-  for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
-    if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
-      queryHospitals.push(dynamicallyCreatedHospitals[i])
-    }
-  }
 
   var userRequest = {
     referralType: $referralInformation.val().trim(),
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: [queryHospitals],
+    hospitals: queryHospitals,
     needsFollowup: $needsFollowup.val().trim(),
   };
 
-//   API.saveExample(example).then(function() {
-//     refreshExamples();
-//   });
+  console.log(userRequest);
+  console.log("Yes");
+  queryHospitals = [];
+
+  // API.getData(userRequest).then(function() {
+  //   showData();
+  // });
+}
 
 //   $exampleText.val('');
 //   $exampleDescription.val('');
@@ -173,5 +192,5 @@ $(document).ready(() => {
   });;
 })
 
-// $submitBtn.on('click', handleFormSubmit);
+$submitBtn.on('click', handleFormSubmit);
 // $exampleList.on('click', '.delete', handleDeleteBtnClick);

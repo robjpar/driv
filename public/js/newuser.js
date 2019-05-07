@@ -16,7 +16,7 @@ API.getAdmin(username).then(data => {
   } else if ( data === true ) {
     $('body').show();
   }
-})
+});
 
 $(document).ready(function() {
   function signUpUser(email, password, admin) {

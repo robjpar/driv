@@ -1,14 +1,14 @@
 // Get references to page elements
-
 var $referralInformation = $('#referral-type');
-var $ageMin = $("#min-age-input");
-var $ageMax = $("#max-age-input");
-var $hospitals = $("#hospitals");
-var $displayedHospitals = $(".hospitals");
-var $needsFollowup = $("#needs-followup");
-var $exampleDescription = $('#example-description');
+// var slider = new Slider('#age', {});
+var $hospitals = $("#hospitals")
+// var $exampleDescription = $('#example-description');
 var $submitBtn = $('#submit');
-var $exampleList = $('#example-list');
+// var $exampleList = $('#example-list');
+// $("#ex2").slider({});
+
+// need this to check localstorage of email
+let username = sessionStorage.getItem('email');
 
 
 // The API object contains methods for each kind of request we'll make
@@ -23,27 +23,35 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  getExamples: function() {
-    return $.ajax({
-      url: 'api/request',
-      type: 'GET'
-    });
-  },
+  // getExamples: function() {
+  //   return $.ajax({
+  //     url: 'api/examples',
+  //     type: 'GET'
+  //   });
+  // },
   getHospitals: function() {
     return $.ajax({
       url: 'api/hospitals',
       type: 'GET'
     });
   },
-  deleteExample: function(id) {
+  // deleteExample: function(id) {
+  //   return $.ajax({
+  //     url: 'api/examples/' + id,
+  //     type: 'DELETE'
+  //   });
+  // },
+  getAdmin: (userId) => {
     return $.ajax({
-      url: 'api/examples/' + id,
-      type: 'DELETE'
+      url: '/check-if-admin',
+      data: {id: userId},
+      type: 'POST'
     });
   }
 };
 
 function displayHospitals() {
+  // $("#age").slider({});
   API.getHospitals().then(function(data) {
     let hospitalList = [];
     let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
@@ -69,82 +77,89 @@ function renderHospitalList(rows) {
   $hospitals.append(rows);
 }
 
+loadAdminButton = () => {
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  $('.navbar').append(adminBtn);
+}
+
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
-      var $a = $('<a>')
-        .text(example.text)
-        .attr('href', '/example/' + example.id);
+// var refreshExamples = function() {
+//   API.getExamples().then(function(data) {
+//     var $examples = data.map(function(example) {
+//       var $a = $('<a>')
+//         .text(example.text)
+//         .attr('href', '/example/' + example.id);
 
-      var $li = $('<li>')
-        .attr({
-          class: 'list-group-item',
-          'data-id': example.id
-        })
-        .append($a);
+//       var $li = $('<li>')
+//         .attr({
+//           class: 'list-group-item',
+//           'data-id': example.id
+//         })
+//         .append($a);
 
-      var $button = $('<button>')
-        .addClass('btn btn-danger float-right delete')
-        .text('ｘ');
+//       var $button = $('<button>')
+//         .addClass('btn btn-danger float-right delete')
+//         .text('ｘ');
 
-      $li.append($button);
+//       $li.append($button);
 
-      return $li;
-    });
+//       return $li;
+//     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
-  });
-};
+//     $exampleList.empty();
+//     $exampleList.append($examples);
+//   });
+// };
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
-  event.preventDefault();
+// var handleFormSubmit = function(event) {
+//   event.preventDefault();
 
-  // checkValues();
+//   var example = {
+//     text: $exampleText.val().trim(),
+//     description: $exampleDescription.val().trim()
+//   };
 
-  // function checkValues() {
-  //   if (ageMin )
-  // }
+//   if (!(example.text && example.description)) {
+//     alert('You must enter an example text and description!');
+//     return;
+//   }
 
-  var userRequest = {
-    referralType: $referralInformation.val().trim(),
-    ageMin: parseInt($ageMin.val()),
-    ageMax: parseInt($ageMax.val()),
-    hospitals: $displayedHospitals.attr("id"),
-    needsFollowup: $needsFollowup.val().trim(),
-  };
+//   API.saveExample(example).then(function() {
+//     refreshExamples();
+//   });
 
-  // if (!referralType) {
-  //   alert('You must enter an example text and description!');
-  //   return;
-  // }
-
-  console.log(userRequest);
-
-  // API.getExamples(userRequest).then(function() {
-  //   refreshExamples();
-  // });
-
-  // $exampleText.val('');
-  // $exampleDescription.val('');
-};
+//   $exampleText.val('');
+//   $exampleDescription.val('');
+// };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
-  var idToDelete = $(this)
-    .parent()
-    .attr('data-id');
+// var handleDeleteBtnClick = function() {
+//   var idToDelete = $(this)
+//     .parent()
+//     .attr('data-id');
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
-  });
-};
+//   API.deleteExample(idToDelete).then(function() {
+//     refreshExamples();
+//   });
+// };
 
 // Add event listeners to the submit and delete buttons
-$(document).ready(displayHospitals);
-$submitBtn.on('click', handleFormSubmit);
-$exampleList.on('click', '.delete', handleDeleteBtnClick);
+$(document).ready(() => {
+  displayHospitals();
+  API.getAdmin(username).then(data => {
+    // sessionStorage.setItem('isAdmin', data);
+    // console.log(sessionStorage.getItem('isAdmin'));
+    if ( data === true ) {
+      loadAdminButton();
+    }
+    // if (sessionStorage.getItem('isAdmin') === 'true') {
+    //   console.log('yes');
+    // }
+  });;
+})
+
+// $submitBtn.on('click', handleFormSubmit);
+// $exampleList.on('click', '.delete', handleDeleteBtnClick);

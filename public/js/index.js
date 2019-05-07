@@ -4,14 +4,13 @@ var $referralInformation = $('#referral-type');
 var $hospitals = $("#hospitals")
 // var $exampleDescription = $('#example-description');
 var $submitBtn = $('#submit');
-// var $exampleList = $('#example-list');
-// $("#ex2").slider({});
-
 // need this to check localstorage of email
 let username = sessionStorage.getItem('email');
 
 
-// The API object contains methods for each kind of request we'll make
+$('#to-hide').hide();
+
+// API object for all requests
 var API = {
   saveExample: function(example) {
     return $.ajax({
@@ -47,6 +46,14 @@ var API = {
       data: {id: userId},
       type: 'POST'
     });
+  },
+  logout: (userId) => {
+    sessionStorage.removeItem('email');
+    return $.ajax({
+      url: '/logout',
+      type: 'GET',
+      data: {user: userId}
+    })
   }
 };
 
@@ -64,11 +71,9 @@ function displayHospitals() {
 
 function createHospitalRow(hospitalData, idNumber) {
   console.log(hospitalData);
-
   // var container = $('#cblist');
   //  var inputs = container.find('input');
-
-  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  var newHospital = $('<br><input class="form-check-input" type="checkbox" value="" id="'+ idNumber +'"><label class="form-check-label" for="' + idNumber +'">'+ hospitalData + '</label>');   
   return newHospital;
 }
 
@@ -77,89 +82,41 @@ function renderHospitalList(rows) {
   $hospitals.append(rows);
 }
 
+// if user is admin, load admin button
 loadAdminButton = () => {
-  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
-  $('.navbar').append(adminBtn);
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-3 text-white float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  $('#index-nav').append(adminBtn);
 }
 
-// refreshExamples gets new examples from the db and repopulates the list
-// var refreshExamples = function() {
-//   API.getExamples().then(function(data) {
-//     var $examples = data.map(function(example) {
-//       var $a = $('<a>')
-//         .text(example.text)
-//         .attr('href', '/example/' + example.id);
-
-//       var $li = $('<li>')
-//         .attr({
-//           class: 'list-group-item',
-//           'data-id': example.id
-//         })
-//         .append($a);
-
-//       var $button = $('<button>')
-//         .addClass('btn btn-danger float-right delete')
-//         .text('ｘ');
-
-//       $li.append($button);
-
-//       return $li;
-//     });
-
-//     $exampleList.empty();
-//     $exampleList.append($examples);
-//   });
-// };
-
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-// var handleFormSubmit = function(event) {
-//   event.preventDefault();
-
-//   var example = {
-//     text: $exampleText.val().trim(),
-//     description: $exampleDescription.val().trim()
-//   };
-
-//   if (!(example.text && example.description)) {
-//     alert('You must enter an example text and description!');
-//     return;
-//   }
-
-//   API.saveExample(example).then(function() {
-//     refreshExamples();
-//   });
-
-//   $exampleText.val('');
-//   $exampleDescription.val('');
-// };
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-// var handleDeleteBtnClick = function() {
-//   var idToDelete = $(this)
-//     .parent()
-//     .attr('data-id');
-
-//   API.deleteExample(idToDelete).then(function() {
-//     refreshExamples();
-//   });
-// };
+// logout functionality
+$('#logout-button').on('click', () => {
+  console.log(username);
+  // Route for logging user out
+  API.logout(username).then(data =>  {
+    location.reload();
+  });
+})
 
 // Add event listeners to the submit and delete buttons
 $(document).ready(() => {
-  displayHospitals();
-  API.getAdmin(username).then(data => {
-    // sessionStorage.setItem('isAdmin', data);
-    // console.log(sessionStorage.getItem('isAdmin'));
-    if ( data === true ) {
-      loadAdminButton();
-    }
-    // if (sessionStorage.getItem('isAdmin') === 'true') {
-    //   console.log('yes');
-    // }
-  });;
-})
+  $('#index-loader').show();
+  if (username === null) {
+    window.location = '/login';
+  } else {
+    setTimeout(() => {
+      $('#index-loader').hide();
+      $('#to-hide').show();
+      displayHospitals();
+      API.getAdmin(username).then(data => {
+        if ( data === true ) {
+          loadAdminButton();
+        }
+      });;
+    }, 500);
+    
+  }
+  
+  
 
-// $submitBtn.on('click', handleFormSubmit);
-// $exampleList.on('click', '.delete', handleDeleteBtnClick);
+  
+});

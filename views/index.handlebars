@@ -1,6 +1,12 @@
-<nav>
-  <img id="drivloginimg" src="/styles/drivlogo.png">
-</nav>
+{{!-- dont change this id please :) --}}
+<div id="index-loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+<span id="to-hide">
+  <nav id="index-nav">
+    <img id="drivloginimg" src="/styles/drivlogo.png">
+    <button type="button" class="btn btn-danger btn-sm float-right m-3" id="logout-button">Logout</button>
+  </nav>
+
 
 <div class="container p-3 shadow-sm">
   <div class="row">
@@ -74,6 +80,7 @@
     </div>
 
 </div>
+</span>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

@@ -73,7 +73,7 @@ function displayHospitals() {
 function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
-  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
   return newHospital;
 }
 
@@ -83,8 +83,13 @@ function renderHospitalList(rows) {
 }
 
 loadAdminButton = () => {
-  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
   $('.navbar').append(adminBtn);
+}
+
+loadLogoutButton = () => {
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  $('.navbar').append(logoutBtn);
 }
 
 // refreshExamples gets new examples from the db and repopulates the list
@@ -185,6 +190,7 @@ $(document).ready(() => {
     // console.log(sessionStorage.getItem('isAdmin'));
     if ( data === true ) {
       loadAdminButton();
+      loadLogoutButton();
     }
     // if (sessionStorage.getItem('isAdmin') === 'true') {
     //   console.log('yes');

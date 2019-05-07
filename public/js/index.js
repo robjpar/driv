@@ -1,8 +1,14 @@
 // Get references to page elements
 var $referralInformation = $('#referral-type');
-// var slider = new Slider('#age', {});
-var $hospitals = $("#hospitals")
-// var $exampleDescription = $('#example-description');
+var $ageMin = $("#min-age-input");
+var $ageMax = $("#max-age-input");
+var $hospitals = $("#hospitals");
+var $displayedHospitals = $(".hospitals");
+var dynamicallyCreatedHospitals = [];
+var queryHospitals = [];
+var $needsFollowup = $("#needs-followup");
+var $exampleDescription = $('#example-description');
+
 var $submitBtn = $('#submit');
 // need this to check localstorage of email
 let username = sessionStorage.getItem('email');
@@ -22,12 +28,12 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  // getExamples: function() {
-  //   return $.ajax({
-  //     url: 'api/examples',
-  //     type: 'GET'
-  //   });
-  // },
+  getData: function(query) {
+    return $.ajax({
+      url: 'api/data',
+      type: 'GET'
+    });
+  },
   getHospitals: function() {
     return $.ajax({
       url: 'api/hospitals',
@@ -63,18 +69,18 @@ function displayHospitals() {
     let hospitalList = [];
     let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
     for (var i = 0; i < dummyHospitalList.length; i++) {
+      dynamicallyCreatedHospitals.push(dummyHospitalList[i]);
       hospitalList.push(createHospitalRow(dummyHospitalList[i], i));
     }
     renderHospitalList(hospitalList);
+    // console.log(dynamicallyCreatedHospitals);
   })
 }
 
 function createHospitalRow(hospitalData, idNumber) {
-  console.log(hospitalData);
-  // var container = $('#cblist');
-  //  var inputs = container.find('input');
-  var newHospital = $('<br><input class="form-check-input" type="checkbox" value="" id="'+ idNumber +'"><label class="form-check-label" for="' + idNumber +'">'+ hospitalData + '</label>');   
-  return newHospital;
+  // console.log(hospitalData);
+
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
 }
 
 function renderHospitalList(rows) {
@@ -87,6 +93,10 @@ loadAdminButton = () => {
   let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-3 text-white float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
   $('#index-nav').append(adminBtn);
 }
+loadLogoutButton = () => {
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  $('.navbar').append(logoutBtn);
+}
 
 // logout functionality
 $('#logout-button').on('click', () => {
@@ -96,6 +106,67 @@ $('#logout-button').on('click', () => {
     location.reload();
   });
 })
+
+$(".form-check-input.hospitals").on("click", function() {
+    console.log("it's Working!");
+    console.log($(this).val());
+    if ($(this).val() === false) {
+      $(this).val() = true;
+      queryHospitals.push($(this).data("id"))
+    } else {
+      $(this).val() = false
+      for (var i = 0; i < queryHospitals.length; i++) {
+        if (queryHospitals[i] === $(this).data("id")) {
+          queryHospitals.splice(i, 1)
+        }
+      }
+    }
+  })
+
+// handleFormSubmit is called whenever we submit a new example
+// Save the new example to the db and refresh the list
+var handleFormSubmit = function(event) {
+//   event.preventDefault();
+  console.log(queryHospitals);
+
+  // for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
+  //   if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
+  //     queryHospitals.push(dynamicallyCreatedHospitals[i])
+  //   }
+  // }
+
+  var userRequest = {
+    referralType: $referralInformation.val().trim(),
+    ageMin: parseInt($ageMin.val()),
+    ageMax: parseInt($ageMax.val()),
+    hospitals: queryHospitals,
+    needsFollowup: $needsFollowup.val().trim(),
+  };
+
+  console.log(userRequest);
+  console.log("Yes");
+  queryHospitals = [];
+
+  // API.getData(userRequest).then(function() {
+  //   showData();
+  // });
+}
+
+//   $exampleText.val('');
+//   $exampleDescription.val('');
+// };
+
+// handleDeleteBtnClick is called when an example's delete button is clicked
+// Remove the example from the db and refresh the list
+// var handleDeleteBtnClick = function() {
+//   var idToDelete = $(this)
+//     .parent()
+//     .attr('data-id');
+
+//   API.deleteExample(idToDelete).then(function() {
+//     refreshExamples();
+//   });
+// };
 
 // Add event listeners to the submit and delete buttons
 $(document).ready(() => {
@@ -110,13 +181,10 @@ $(document).ready(() => {
       API.getAdmin(username).then(data => {
         if ( data === true ) {
           loadAdminButton();
+          loadLogoutButton();
         }
       });;
     }, 500);
     
   }
-  
-  
-
-  
 });

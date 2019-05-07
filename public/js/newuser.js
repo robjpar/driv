@@ -1,3 +1,23 @@
+$('body').hide();
+const API = {
+  getAdmin: (userId) => {
+    return $.ajax({
+      url: '/check-if-admin',
+      data: {id: userId},
+      type: 'POST'
+    });
+  }
+};
+
+let username = sessionStorage.getItem('email');
+API.getAdmin(username).then(data => {
+  if ( data != true ) {
+    window.location.href = '/';
+  } else if ( data === true ) {
+    $('body').show();
+  }
+})
+
 $(document).ready(function() {
   function signUpUser(email, password, admin) {
     $.post('/api/new-user', {

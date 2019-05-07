@@ -7,7 +7,7 @@ var $displayedHospitals = $(".hospitals");
 var dynamicallyCreatedHospitals = [];
 var queryHospitals = [];
 var $needsFollowup = $("#needs-followup");
-var $exampleDescription = $('#example-description');
+var $referralData = $("#referral-info");
 
 var $submitBtn = $('#submit');
 // var $exampleList = $('#example-list');
@@ -87,6 +87,9 @@ loadAdminButton = () => {
   $('.navbar').append(adminBtn);
 }
 
+function showData() {
+  var $
+}
 // refreshExamples gets new examples from the db and repopulates the list
 // var refreshExamples = function() {
 //   API.getExamples().then(function(data) {
@@ -156,10 +159,14 @@ var handleFormSubmit = function(event) {
   console.log("Yes");
   queryHospitals = [];
 
-  // API.getData(userRequest).then(function() {
-  //   showData();
-  // });
+  API.getData(userRequest).then(function() {
+    showData();
+  });
 }
+
+//   API.saveExample(example).then(function() {
+//     refreshExamples();
+//   });
 
 //   $exampleText.val('');
 //   $exampleDescription.val('');

@@ -1,8 +1,13 @@
 // Get references to page elements
 var $referralInformation = $('#referral-type');
-// var slider = new Slider('#age', {});
-var $hospitals = $("#hospitals")
-// var $exampleDescription = $('#example-description');
+var $ageMin = $("#min-age-input");
+var $ageMax = $("#max-age-input");
+var $hospitals = $("#hospitals");
+var $displayedHospitals = $(".hospitals");
+var dynamicallyCreatedHospitals = [];
+var $needsFollowup = $("#needs-followup");
+var $exampleDescription = $('#example-description');
+
 var $submitBtn = $('#submit');
 // var $exampleList = $('#example-list');
 // $("#ex2").slider({});
@@ -56,19 +61,18 @@ function displayHospitals() {
     let hospitalList = [];
     let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
     for (var i = 0; i < dummyHospitalList.length; i++) {
+      dynamicallyCreatedHospitals.push(dummyHospitalList[i]);
       hospitalList.push(createHospitalRow(dummyHospitalList[i], i));
     }
     renderHospitalList(hospitalList);
+    console.log(dynamicallyCreatedHospitals);
   })
 }
 
 function createHospitalRow(hospitalData, idNumber) {
   console.log(hospitalData);
-
-  // var container = $('#cblist');
-  //  var inputs = container.find('input');
-
-  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  
+  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
   return newHospital;
 }
 
@@ -116,15 +120,23 @@ loadAdminButton = () => {
 // var handleFormSubmit = function(event) {
 //   event.preventDefault();
 
-//   var example = {
-//     text: $exampleText.val().trim(),
-//     description: $exampleDescription.val().trim()
-//   };
+  // function checkValues() {
+  //   if (ageMin )
+  // }
+  let queryHospitals = [];
+  for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
+    if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
+      queryHospitals.push(dynamicallyCreatedHospitals[i])
+    }
+  }
 
-//   if (!(example.text && example.description)) {
-//     alert('You must enter an example text and description!');
-//     return;
-//   }
+  var userRequest = {
+    referralType: $referralInformation.val().trim(),
+    ageMin: parseInt($ageMin.val()),
+    ageMax: parseInt($ageMax.val()),
+    hospitals: [queryHospitals],
+    needsFollowup: $needsFollowup.val().trim(),
+  };
 
 //   API.saveExample(example).then(function() {
 //     refreshExamples();

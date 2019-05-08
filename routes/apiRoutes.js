@@ -59,4 +59,50 @@ module.exports = function(app) {
     }
   });
 
+  // /api/donors?donor_id=R1902502
+  //            &ref_type=TE
+  //            &org=Good+Samaritan+Medical+Center+-+Corvallis
+  app.get('/api/donors', function(req, res) {
+    if (!req.user) { // user not logged in
+      res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
+    } else { // user logged in
+      const where = {};
+      if (req.query.donor_id) where.donorId = req.query.donor_id;
+      if (req.query.ref_type) where.referralType = req.query.ref_type;
+
+      const inclWhere = {};
+      if (req.query.org) inclWhere.name = req.query.org;
+
+      db.Donor.findAll({
+        where,
+        include: [{
+          model: db.Organization,
+          where: inclWhere
+        }]
+      }).then(function(results) {
+        res.json(results);
+      });
+    }
+  });
+
+  // /api/organizations?name=Good+Samaritan+Medical+Center+-+Corvallis
+  //                   &list=donors
+  app.get('/api/organizations', function(req, res) {
+    if (!req.user) { // user not logged in
+      res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
+    } else { // user logged in
+      const where = {};
+      if (req.query.name) where.name = req.query.name;
+
+      const include = req.query.list === 'donors' ? [db.Donor] : undefined;
+
+      db.Organization.findAll({
+        where,
+        include
+      }).then(function(results) {
+        res.json(results);
+      });
+    }
+  });
+
 };

@@ -3,17 +3,15 @@ var passport = require('../config/passport/passport');
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
   app.post('/api/login', passport.authenticate('local'), function(req, res) {
     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-    // So we're sending the user back the route to the members page because the redirect will happen on the front end
+    // So we're sending the user back the index route. the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
     res.json('/');
   });
 
-  // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
-  // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
+  // Route for signing up a user. The user's password is automatically hashed and stored securely
+  // If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post('/api/new-user', function(req, res) {
     let email = req.body.email;
@@ -36,13 +34,14 @@ module.exports = function(app) {
       // res.status(422).json(err.errors[0].message);
     });
   });
-
   // Route for logging user out
-  app.get('/logout', function(req, res) {
+  app.get('/logout', function (req, res){
+    console.log('running');
+    console.log(req);
     req.logout();
-    res.redirect('/');
+    req.session.destroy();
+    res.redirect("/login");
   });
-
   // Route for getting some data about our user to be used client side
   app.get('/api/user_data', function(req, res) {
     if (!req.user) {
@@ -58,6 +57,18 @@ module.exports = function(app) {
       });
     }
   });
+  // route for checking if user is admin at index page
+  app.post('/check-if-admin', (req,res) => {
+    // console.log('request recieved');
+    // console.log(req.body.id);
+    return db.User.findOne({
+      where: {email: req.body.id},
+    }).then(project => {
+      // true if admin, false if not
+      console.log(project.dataValues.admin);
+      res.json(project.dataValues.admin)
+    })
+  })
 
   // /api/donors?donor_id=R1902502
   //            &ref_type=TE

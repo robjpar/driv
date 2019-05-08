@@ -1,8 +1,11 @@
 #headtext {
     font-size: 1.5rem;
 }
-
-.container {
+.indexcontainer {
     background-color: #b3e3fc;
     max-height: 90vh;
+}
+.lds-roller {
+    color: white;
+    margin: 15% 200px;
 }

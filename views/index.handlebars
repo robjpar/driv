@@ -1,8 +1,13 @@
-<nav>
-  <img id="drivloginimg" src="/styles/drivlogo.png">
-</nav>
 
-<div class="container p-3 shadow-sm">
+{{!-- dont change this id please :) --}}
+<div id="index-loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+<span id="to-hide">
+  <nav id="index-nav">
+    <img id="drivloginimg" src="/styles/drivlogo.png">
+  </nav>
+
+<div id="indexcontainer" class="container p-3 shadow-sm">
   <div class="row">
     <div class="col-12">
       <h2> {{msg}} <span id="headtext">Select your criteria and click "Search"</span></h2>
@@ -24,11 +29,11 @@
             <h5>Enter Age</h5>
             <div class="row">
               <div class="form-group col">
-                <label for="min-age-input" class="col-2 col-form-label">Min</label>
+                <label for="min-age-input" class="col col-form-label">Min</label>
                 <input class="form-control" type="number" value="" id="min-age-input">
               </div>
               <div class="form-group col">
-                <label for="max-age-input" class="col-2 col-form-label">Max</label>
+                <label for="max-age-input" class="col col-form-label">Max</label>
                 <input class="form-control" type="number" value="" id="max-age-input">
               </div>
             </div>
@@ -81,6 +86,7 @@
     </div>
 
 </div>
+</span>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

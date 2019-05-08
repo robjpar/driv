@@ -10,8 +10,8 @@ module.exports = function(app) {
     res.json('/');
   });
 
-  // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
-  // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
+  // Route for signing up a user. The user's password is automatically hashed and stored securely
+  // If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post('/api/new-user', function(req, res) {
     let email = req.body.email;
@@ -35,9 +35,12 @@ module.exports = function(app) {
     });
   });
   // Route for logging user out
-  app.get('/logout', function(req, res) {
+  app.get('/logout', function (req, res){
+    console.log('running');
+    console.log(req);
     req.logout();
-    res.redirect('/');
+    req.session.destroy();
+    res.redirect("/login");
   });
   // Route for getting some data about our user to be used client side
   app.get('/api/user_data', function(req, res) {
@@ -66,5 +69,51 @@ module.exports = function(app) {
       res.json(project.dataValues.admin)
     })
   })
+
+  // /api/donors?donor_id=R1902502
+  //            &ref_type=TE
+  //            &org=Good+Samaritan+Medical+Center+-+Corvallis
+  app.get('/api/donors', function(req, res) {
+    if (!req.user) { // user not logged in
+      res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
+    } else { // user logged in
+      const where = {};
+      if (req.query.donor_id) where.donorId = req.query.donor_id;
+      if (req.query.ref_type) where.referralType = req.query.ref_type;
+
+      const inclWhere = {};
+      if (req.query.org) inclWhere.name = req.query.org;
+
+      db.Donor.findAll({
+        where,
+        include: [{
+          model: db.Organization,
+          where: inclWhere
+        }]
+      }).then(function(results) {
+        res.json(results);
+      });
+    }
+  });
+
+  // /api/organizations?name=Good+Samaritan+Medical+Center+-+Corvallis
+  //                   &list=donors
+  app.get('/api/organizations', function(req, res) {
+    if (!req.user) { // user not logged in
+      res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
+    } else { // user logged in
+      const where = {};
+      if (req.query.name) where.name = req.query.name;
+
+      const include = req.query.list === 'donors' ? [db.Donor] : undefined;
+
+      db.Organization.findAll({
+        where,
+        include
+      }).then(function(results) {
+        res.json(results);
+      });
+    }
+  });
 
 };

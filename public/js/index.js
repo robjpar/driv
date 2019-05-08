@@ -10,14 +10,13 @@ var $needsFollowup = $("#needs-followup");
 var $referralData = $("#referral-info");
 
 var $submitBtn = $('#submit');
-// var $exampleList = $('#example-list');
-// $("#ex2").slider({});
-
 // need this to check localstorage of email
 let username = sessionStorage.getItem('email');
 
 
-// The API object contains methods for each kind of request we'll make
+$('#to-hide').hide();
+
+// API object for all requests
 var API = {
   saveExample: function(example) {
     return $.ajax({
@@ -53,6 +52,14 @@ var API = {
       data: {id: userId},
       type: 'POST'
     });
+  },
+  logout: (userId) => {
+    sessionStorage.removeItem('email');
+    return $.ajax({
+      url: '/logout',
+      type: 'GET',
+      data: {user: userId}
+    })
   }
 };
 
@@ -73,8 +80,7 @@ function displayHospitals() {
 function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
-  var newHospital = $('<br><input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>');   
-  return newHospital;
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
 }
 
 function renderHospitalList(rows) {
@@ -82,11 +88,17 @@ function renderHospitalList(rows) {
   $hospitals.append(rows);
 }
 
+// if user is admin, load admin button
 loadAdminButton = () => {
-  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
-  $('.navbar').append(adminBtn);
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-3 text-white float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  $('#index-nav').append(adminBtn);
+}
+loadLogoutButton = () => {
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  $('.navbar').append(logoutBtn);
 }
 
+<<<<<<< HEAD
 function showData() {
   var $
 }
@@ -118,6 +130,16 @@ function showData() {
 //     $exampleList.append($examples);
 //   });
 // };
+=======
+// logout functionality
+$('#logout-button').on('click', () => {
+  console.log(username);
+  // Route for logging user out
+  API.logout(username).then(data =>  {
+    location.reload();
+  });
+})
+>>>>>>> master
 
 $(".form-check-input.hospitals").on("click", function() {
     console.log("it's Working!");
@@ -186,18 +208,21 @@ var handleFormSubmit = function(event) {
 
 // Add event listeners to the submit and delete buttons
 $(document).ready(() => {
-  displayHospitals();
-  API.getAdmin(username).then(data => {
-    // sessionStorage.setItem('isAdmin', data);
-    // console.log(sessionStorage.getItem('isAdmin'));
-    if ( data === true ) {
-      loadAdminButton();
-    }
-    // if (sessionStorage.getItem('isAdmin') === 'true') {
-    //   console.log('yes');
-    // }
-  });;
-})
-
-$submitBtn.on('click', handleFormSubmit);
-// $exampleList.on('click', '.delete', handleDeleteBtnClick);
+  $('#index-loader').show();
+  if (username === null) {
+    window.location = '/login';
+  } else {
+    setTimeout(() => {
+      $('#index-loader').hide();
+      $('#to-hide').show();
+      displayHospitals();
+      API.getAdmin(username).then(data => {
+        if ( data === true ) {
+          loadAdminButton();
+          loadLogoutButton();
+        }
+      });;
+    }, 500);
+    
+  }
+});

@@ -30,7 +30,7 @@ var API = {
   },
   getData: function(query) {
     return $.ajax({
-      url: 'api/donors',
+      url: 'api/donors?ref_type=' + query.referralType + '&org=' + query.hospitals,
       type: 'GET'
     });
   },
@@ -66,11 +66,18 @@ var API = {
 function displayHospitals() {
   // $("#age").slider({});
   API.getHospitals().then(function(data) {
+    data = data.map(function(element) {
+      return element.name;
+    }).sort();
+    console.log(data);
+    // data.forEach(function(element) {
+    //   element.
+    // });
     let hospitalList = [];
-    let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
-    for (var i = 0; i < dummyHospitalList.length; i++) {
-      dynamicallyCreatedHospitals.push(dummyHospitalList[i]);
-      hospitalList.push(createHospitalRow(dummyHospitalList[i], i));
+    // let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
+    for (var i = 0; i < data.length; i++) {
+      // dynamicallyCreatedHospitals.push(dummyHospitalList[i]);
+      hospitalList.push(createHospitalRow(data[i], i));
     }
     renderHospitalList(hospitalList);
     // console.log(dynamicallyCreatedHospitals);
@@ -80,7 +87,8 @@ function displayHospitals() {
 function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
-  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="' + idNumber + '" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  console.log(newHospital);
   return newHospital;
 }
 

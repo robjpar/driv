@@ -7,7 +7,7 @@ var $displayedHospitals = $(".hospitals");
 var dynamicallyCreatedHospitals = [];
 var queryHospitals = [];
 var $needsFollowup = $("#needs-followup");
-var $exampleDescription = $('#example-description');
+var $referralData = $("#referral-info");
 
 var $submitBtn = $('#submit');
 // need this to check localstorage of email
@@ -30,13 +30,13 @@ var API = {
   },
   getData: function(query) {
     return $.ajax({
-      url: 'api/data',
+      url: 'api/donors',
       type: 'GET'
     });
   },
   getHospitals: function() {
     return $.ajax({
-      url: 'api/hospitals',
+      url: 'api/organizations',
       type: 'GET'
     });
   },
@@ -81,6 +81,7 @@ function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
   var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  return newHospital;
 }
 
 function renderHospitalList(rows) {
@@ -97,6 +98,36 @@ loadLogoutButton = () => {
   let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
   $('.navbar').append(logoutBtn);
 }
+
+
+// refreshExamples gets new examples from the db and repopulates the list
+// var refreshExamples = function() {
+//   API.getExamples().then(function(data) {
+//     var $examples = data.map(function(example) {
+//       var $a = $('<a>')
+//         .text(example.text)
+//         .attr('href', '/example/' + example.id);
+
+//       var $li = $('<li>')
+//         .attr({
+//           class: 'list-group-item',
+//           'data-id': example.id
+//         })
+//         .append($a);
+
+//       var $button = $('<button>')
+//         .addClass('btn btn-danger float-right delete')
+//         .text('ｘ');
+
+//       $li.append($button);
+
+//       return $li;
+//     });
+
+//     $exampleList.empty();
+//     $exampleList.append($examples);
+//   });
+// };
 
 // logout functionality
 $('#logout-button').on('click', () => {
@@ -123,6 +154,23 @@ $(".form-check-input.hospitals").on("click", function() {
     }
   })
 
+  function showData() {
+    var $referrals = data.map(function(referral) {
+      var $a = $("<a>")
+        .text(referral.text)
+        .attr("href", "/referral/" + referral.id);
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": referral.id
+        })
+        .append($a);
+  
+      var $checkbox = $('<br><input class="form-check-input referrals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>')
+  })
+  }
+
+
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
@@ -147,10 +195,14 @@ var handleFormSubmit = function(event) {
   console.log("Yes");
   queryHospitals = [];
 
-  // API.getData(userRequest).then(function() {
-  //   showData();
-  // });
+  API.getData(userRequest).then(function() {
+    showData();
+  });
 }
+
+//   API.saveExample(example).then(function() {
+//     refreshExamples();
+//   });
 
 //   $exampleText.val('');
 //   $exampleDescription.val('');
@@ -188,3 +240,5 @@ $(document).ready(() => {
     
   }
 });
+
+$submitBtn.on('click', handleFormSubmit);

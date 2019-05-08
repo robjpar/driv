@@ -171,19 +171,26 @@ function game() {
 const framePerSecond = 50;
 setInterval(game, 1000 / framePerSecond);
 
-
-// Nav Buttons
-loadAdminButton = () => {
-    let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
-    $('.navbar').append(adminBtn);
+// Nav buttons
+loadSearchButton = () => {
+    let searchBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Return to Search').attr('id', 'search-button').attr('href', '/').attr('role', 'button');
+    $('#404-nav').append(searchBtn);
   }
-  
   loadLogoutButton = () => {
-    let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
-    $('.navbar').append(logoutBtn);
-  }
+    let logoutBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+    $('#404-nav').append(logoutBtn);
+  } 
+  
+  // logout functionality
+  $('#logout-button').on('click', () => {
+    console.log(username);
+    // Route for logging user out
+    API.logout(username).then(data =>  {
+      location.reload();
+    });
+  })
 
-$(document).ready(() => {
-        loadAdminButton();
-        loadLogoutButton();
+  $(document).ready(() => {
+            loadSearchButton();
+            loadLogoutButton();
   });

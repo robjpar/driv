@@ -99,13 +99,13 @@ function renderHospitalList(rows) {
 
 // if user is admin, load admin button
 loadAdminButton = () => {
-  let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-3 text-white float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
   $('#index-nav').append(adminBtn);
 }
 loadLogoutButton = () => {
-  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
-  $('.navbar').append(logoutBtn);
-}
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  $('#index-nav').append(logoutBtn);
+} 
 
 
 // refreshExamples gets new examples from the db and repopulates the list

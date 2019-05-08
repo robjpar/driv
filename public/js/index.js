@@ -30,13 +30,13 @@ var API = {
   },
   getData: function(query) {
     return $.ajax({
-      url: 'api/data',
+      url: 'api/donors',
       type: 'GET'
     });
   },
   getHospitals: function() {
     return $.ajax({
-      url: 'api/hospitals',
+      url: 'api/organizations',
       type: 'GET'
     });
   },
@@ -81,6 +81,7 @@ function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
   var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  return newHospital;
 }
 
 function renderHospitalList(rows) {
@@ -98,10 +99,7 @@ loadLogoutButton = () => {
   $('.navbar').append(logoutBtn);
 }
 
-<<<<<<< HEAD
-function showData() {
-  var $
-}
+
 // refreshExamples gets new examples from the db and repopulates the list
 // var refreshExamples = function() {
 //   API.getExamples().then(function(data) {
@@ -130,7 +128,7 @@ function showData() {
 //     $exampleList.append($examples);
 //   });
 // };
-=======
+
 // logout functionality
 $('#logout-button').on('click', () => {
   console.log(username);
@@ -139,7 +137,6 @@ $('#logout-button').on('click', () => {
     location.reload();
   });
 })
->>>>>>> master
 
 $(".form-check-input.hospitals").on("click", function() {
     console.log("it's Working!");
@@ -156,6 +153,23 @@ $(".form-check-input.hospitals").on("click", function() {
       }
     }
   })
+
+  function showData() {
+    var $referrals = data.map(function(referral) {
+      var $a = $("<a>")
+        .text(referral.text)
+        .attr("href", "/referral/" + referral.id);
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": referral.id
+        })
+        .append($a);
+  
+      var $checkbox = $('<br><input class="form-check-input referrals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>')
+  })
+  }
+
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
@@ -226,3 +240,5 @@ $(document).ready(() => {
     
   }
 });
+
+$submitBtn.on('click', handleFormSubmit);

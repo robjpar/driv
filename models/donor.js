@@ -49,6 +49,11 @@ module.exports = function(sequelize, DataTypes) {
     wasHeartBeating: {
       type: DataTypes.BOOLEAN,
       allowNull: false
+    },
+    isFollowUp: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      default: false
     }
   });
 

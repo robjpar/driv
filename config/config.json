@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "cheese",
     "database": "referraldata_db",
     "host": "localhost",
     "dialect": "mysql"

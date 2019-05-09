@@ -8,6 +8,16 @@ const API = {
     });
   }
 };
+// Nav buttons
+loadAdminButton = () => {
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  $('.navbar').append(adminBtn);
+}
+
+loadLogoutButton = () => {
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
+  $('.navbar').append(logoutBtn);
+}
 
 let username = sessionStorage.getItem('email');
 API.getAdmin(username).then(data => {
@@ -18,7 +28,19 @@ API.getAdmin(username).then(data => {
   }
 });
 
+// logout functionality
+$(document).on('click', '#logout-button', () => {
+  console.log(username);
+  // Route for logging user out
+  API.logout(username).then(data =>  {
+    location.reload();
+  });
+});
+
 $(document).ready(function() {
+  loadAdminButton();
+  loadLogoutButton();
+
   function signUpUser(email, password, admin) {
     $.post('/api/new-user', {
       email: email,
@@ -55,20 +77,4 @@ $(document).ready(function() {
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   }
-});
-
-// Nav buttons
-loadAdminButton = () => {
-  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
-  $('.navbar').append(adminBtn);
-}
-
-loadLogoutButton = () => {
-  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
-  $('.navbar').append(logoutBtn);
-}
-
-$(document).ready(() => {
-  loadAdminButton();
-  loadLogoutButton();
 });

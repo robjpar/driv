@@ -94,12 +94,12 @@ loadAdminButton = () => {
   $('#index-nav').append(adminBtn);
 }
 loadLogoutButton = () => {
-  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
-  $('.navbar').append(logoutBtn);
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
+  $('#index-nav').append(logoutBtn);
 }
 
 // logout functionality
-$('#logout-button').on('click', () => {
+$(document).on('click', '#logout-button', () => {
   console.log(username);
   // Route for logging user out
   API.logout(username).then(data =>  {

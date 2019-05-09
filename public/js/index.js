@@ -8,6 +8,8 @@ var $needsFollowup = $("#needs-followup");
 var $referralData = $("#referral-info");
 
 var $submitBtn = $('#submit');
+
+var $displayedReferrals = $("#referral-info");
 // need this to check localstorage of email
 let username = sessionStorage.getItem('email');
 
@@ -38,12 +40,12 @@ var API = {
       type: 'GET'
     });
   },
-  // deleteExample: function(id) {
-  //   return $.ajax({
-  //     url: 'api/examples/' + id,
-  //     type: 'DELETE'
-  //   });
-  // },
+  updateReferral: function(id) {
+    return $.ajax({
+      url: 'api/needsfollowup/' + id,
+      type: 'UPDATE'
+    });
+  },
   getAdmin: (userId) => {
     return $.ajax({
       url: '/check-if-admin',
@@ -153,48 +155,38 @@ $(".form-check-input.hospitals").on("click", function() {
     }
   })
 
-  function showData() {
-    var $referrals = data.map(function(referral) {
-      var $a = $("<a>")
-        .text(referral.text)
-        .attr("href", "/referral/" + referral.id);
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": referral.id
-        })
-        .append($a);
-  
-      var $checkbox = $('<br><input class="form-check-input referrals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>')
-  })
-  }
-
-
-
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
-//   event.preventDefault();
+  // event.preventDefault();
   
-
-  // for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
-  //   if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
-  //     queryHospitals.push(dynamicallyCreatedHospitals[i])
-  //   }
-  // }
   var userRequest = {
     referralType: $referralInformation.val().trim(),
-    ageMin: parseInt($ageMin.val()),
-    ageMax: parseInt($ageMax.val()),
-    hospitals: "OHSU",
-    needsFollowup: $needsFollowup.val().trim(),
+    // ageMin: parseInt($ageMin.val()),
+    // ageMax: parseInt($ageMax.val()),
+    hospitals: "Oregon Health and Sciences University",
+    // needsFollowup: $needsFollowup.val().trim(),
   };
 
   console.log(userRequest);
 
-  API.getData(userRequest).then(function() {
-    showData();
-  });
+  API.getData(userRequest).then(function(data) {
+
+    var table = $("<table style='width:100%><tr><th>Referral Number</th><th>Referral Type</th><th>Age</th><th>Organization</th><th>Case needs follow-up?</th>");
+    var td = $("<td>");
+    var $referrals = data.map(function(referral) {
+      var displayInfo = [];
+      var referralId = td.text(referral.donorId);
+      var referralType = td.text(referral.referralType);
+      var age = td.text(referral.age);
+      var organization = td.text(referral.organization);
+      var $checkbox = $('<br><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referral.id + '">')
+      // displayInfo.push(referralId, referralType, age, organization, $checkbox);
+      displayInfo.push("R190500", "OTE", 45, "Oregon Health and Sciences University", $checkbox)
+      return displayInfo;  
+    })
+    $referralData.append(table).append($referrals);
+  })
 }
 
 //   API.saveExample(example).then(function() {
@@ -249,10 +241,12 @@ $submitBtn.on('click', function(event) {
     // $('#myModal').modal('toggle');
     alert("Please make sure to only enter numbers between 0 and 80.")
   } 
-  // if ($ageMin.val() > $ageMax.val()) {
-  //   alert("Please make sure to only enter numbers between 0 and 80.")
-  // }
   else {
   handleFormSubmit();
 }
+})
+
+$("#needs-followup").on("click", function(event) {
+  event.preventDefault();
+  API.updateReferral($(this).id);
 })

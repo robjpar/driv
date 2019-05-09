@@ -1,7 +1,23 @@
 #indexcontainer {
     background-color: #b3e3fc;
+    min-height: 90vh;
     max-height: 90vh;
 }
+
+#hospitalchoice {
+    width: 100%;
+}
+
+#indexmain {
+    min-height: 100%;
+    max-height: 100%;
+}
+
+#searchresults {
+    min-height: 100%;
+    max-height: 100%;
+}
+
 .lds-roller {
     color: white;
     margin: 15% 200px;

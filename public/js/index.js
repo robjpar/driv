@@ -4,10 +4,8 @@ var $ageMin = $("#min-age-input");
 var $ageMax = $("#max-age-input");
 var $hospitals = $("#hospitals");
 var $displayedHospitals = $(".hospitals");
-var dynamicallyCreatedHospitals = [];
-var queryHospitals = [];
 var $needsFollowup = $("#needs-followup");
-var $exampleDescription = $('#example-description');
+var $referralData = $("#referral-info");
 
 var $submitBtn = $('#submit');
 // need this to check localstorage of email
@@ -30,13 +28,13 @@ var API = {
   },
   getData: function(query) {
     return $.ajax({
-      url: 'api/data',
+      url: 'api/donors?ref_type=' + query.referralType + '&org=' + query.hospitals,
       type: 'GET'
     });
   },
   getHospitals: function() {
     return $.ajax({
-      url: 'api/hospitals',
+      url: 'api/organizations',
       type: 'GET'
     });
   },
@@ -66,21 +64,23 @@ var API = {
 function displayHospitals() {
   // $("#age").slider({});
   API.getHospitals().then(function(data) {
+    data = data.map(function(element) {
+      return element.name;
+    }).sort();
+    console.log(data);
     let hospitalList = [];
-    let dummyHospitalList = ["OHSU", "Providence", "Willamette Valley Medical Center"];
-    for (var i = 0; i < dummyHospitalList.length; i++) {
-      dynamicallyCreatedHospitals.push(dummyHospitalList[i]);
-      hospitalList.push(createHospitalRow(dummyHospitalList[i], i));
+    for (var i = 0; i < data.length; i++) {
+      hospitalList.push(createHospitalRow(data[i], i));
     }
     renderHospitalList(hospitalList);
-    // console.log(dynamicallyCreatedHospitals);
   })
 }
 
 function createHospitalRow(hospitalData, idNumber) {
   // console.log(hospitalData);
 
-  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="' + idNumber + '" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  return newHospital;
 }
 
 function renderHospitalList(rows) {
@@ -90,13 +90,49 @@ function renderHospitalList(rows) {
 
 // if user is admin, load admin button
 loadAdminButton = () => {
-  let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-3 text-white float-right').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
   $('#index-nav').append(adminBtn);
 }
 loadLogoutButton = () => {
+<<<<<<< HEAD
   let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
   $('#index-nav').append(logoutBtn);
 }
+=======
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  $('#index-nav').append(logoutBtn);
+} 
+
+
+// refreshExamples gets new examples from the db and repopulates the list
+// var refreshExamples = function() {
+//   API.getExamples().then(function(data) {
+//     var $examples = data.map(function(example) {
+//       var $a = $('<a>')
+//         .text(example.text)
+//         .attr('href', '/example/' + example.id);
+
+//       var $li = $('<li>')
+//         .attr({
+//           class: 'list-group-item',
+//           'data-id': example.id
+//         })
+//         .append($a);
+
+//       var $button = $('<button>')
+//         .addClass('btn btn-danger float-right delete')
+//         .text('ｘ');
+
+//       $li.append($button);
+
+//       return $li;
+//     });
+
+//     $exampleList.empty();
+//     $exampleList.append($examples);
+//   });
+// };
+>>>>>>> master
 
 // logout functionality
 $(document).on('click', '#logout-button', () => {
@@ -122,34 +158,53 @@ $(".form-check-input.hospitals").on("click", function() {
     }
   })
 
+  function showData() {
+    var $referrals = data.map(function(referral) {
+      var $a = $("<a>")
+        .text(referral.text)
+        .attr("href", "/referral/" + referral.id);
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": referral.id
+        })
+        .append($a);
+  
+      var $checkbox = $('<br><input class="form-check-input referrals" type="checkbox" value=false id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label>')
+  })
+  }
+
+
+
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
 //   event.preventDefault();
-  console.log(queryHospitals);
+  
 
   // for (var i = 0; i < dynamicallyCreatedHospitals.length; i++) {
   //   if ($("#" + dynamicallyCreatedHospitals[i]).val()) {
   //     queryHospitals.push(dynamicallyCreatedHospitals[i])
   //   }
   // }
-
   var userRequest = {
     referralType: $referralInformation.val().trim(),
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: queryHospitals,
+    hospitals: "OHSU",
     needsFollowup: $needsFollowup.val().trim(),
   };
 
   console.log(userRequest);
-  console.log("Yes");
-  queryHospitals = [];
 
-  // API.getData(userRequest).then(function() {
-  //   showData();
-  // });
+  API.getData(userRequest).then(function() {
+    showData();
+  });
 }
+
+//   API.saveExample(example).then(function() {
+//     refreshExamples();
+//   });
 
 //   $exampleText.val('');
 //   $exampleDescription.val('');
@@ -187,3 +242,22 @@ $(document).ready(() => {
     
   }
 });
+
+$submitBtn.on('click', function(event) {
+  event.preventDefault();
+  console.log($ageMin.val(), $ageMax.val());
+  if ($ageMin.val() < 0 || $ageMin.val() > 80) {
+    // $('#myModal').modal('toggle');
+    alert("Please make sure to only enter numbers between 0 and 80.")
+  }
+  if ($ageMax.val() < 0 || $ageMax.val() > 80) {
+    // $('#myModal').modal('toggle');
+    alert("Please make sure to only enter numbers between 0 and 80.")
+  } 
+  // if ($ageMin.val() > $ageMax.val()) {
+  //   alert("Please make sure to only enter numbers between 0 and 80.")
+  // }
+  else {
+  handleFormSubmit();
+}
+})

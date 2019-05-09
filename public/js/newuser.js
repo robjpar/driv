@@ -89,3 +89,23 @@ $(document).ready(function() {
     $('#alert').fadeIn(500);
   }
 });
+<<<<<<< HEAD
+=======
+
+// Nav buttons
+loadLogoutButton = () => {
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  $('#index-nav').append(logoutBtn);
+}
+
+loadSearchButton = () => {
+  let searchBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Return to Search').attr('id', 'search-button').attr('href', '/').attr('role', 'button');
+  $('#index-nav').append(searchBtn);
+}
+
+
+$(document).ready(() => {
+  loadLogoutButton();
+  loadSearchButton();
+});
+>>>>>>> master

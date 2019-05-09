@@ -6,6 +6,14 @@ const API = {
       data: {id: userId},
       type: 'POST'
     });
+  },
+  logout: (userId) => {
+    sessionStorage.removeItem('email');
+    return $.ajax({
+      url: '/logout',
+      type: 'GET',
+      data: {user: userId}
+    })
   }
 };
 // Nav buttons
@@ -33,7 +41,7 @@ $(document).on('click', '#logout-button', () => {
   console.log(username);
   // Route for logging user out
   API.logout(username).then(data =>  {
-    location.reload();
+    window.location = '/';
   });
 });
 

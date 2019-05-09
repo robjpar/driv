@@ -100,7 +100,6 @@ loadLogoutButton = () => {
 
 // logout functionality
 $(document).on('click', '#logout-button', () => {
-  console.log(username);
   // Route for logging user out
   API.logout(username).then(data =>  {
     location.reload();

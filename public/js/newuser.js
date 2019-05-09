@@ -36,9 +36,8 @@ API.getAdmin(username).then(data => {
   }
 });
 
-// logout functionality
+// logout functionality when logout button clicked
 $(document).on('click', '#logout-button', () => {
-  console.log(username);
   // Route for logging user out
   API.logout(username).then(data =>  {
     window.location = '/';
@@ -46,6 +45,9 @@ $(document).on('click', '#logout-button', () => {
 });
 
 $(document).ready(function() {
+  if (username === null) {
+    window.location = '/login';
+  } else {
   loadAdminButton();
   loadLogoutButton();
 
@@ -77,6 +79,7 @@ $(document).ready(function() {
     $('#email-input').val('');
     $('#password-input').val('');
   });
+  };
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors

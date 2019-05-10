@@ -57,17 +57,6 @@
             </label>
           </div>
 
-          {{!-- PREVIOUS HOSPITAL LIST --}}
-          {{!-- <div>
-          <h5>Choose Hospital/s</h5>
-          <div class="form-check" id="hospitals">
-            <input class="form-check-input" type="checkbox" value="" id="example">
-            <label class="form-check-label" for="hospitals">
-              Default checkbox
-            </label>
-          </div> --}}
-          {{!-- PREVIOUS HOSPITAL LIST --}}
-
           {{!-- DROP DOWN TEST --}}
           <div>
             <h5>Choose Hospital</h5>
@@ -81,16 +70,6 @@
         </form>
       </div>
 
-      {{!-- <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul> --}}
-
       <div class="col-8">
         <h5>Search Results</h5>
         {{!-- <ul id="referral-info" class="list-group">
@@ -100,9 +79,50 @@
           </li>
           {{each}}
         </ul> --}}
-      </div>
-      <div id="searchresults">
-        
+        <div id="searchresults">
+          {{!-- This is where the results will populate --}}
+          
+          {{!-- Test Table --}}
+<table id="tableCompany">
+  <thead class="theme-dark">
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th class='acciones'>Country</th>
+  </tr>    
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alfreds Futterkiste</td>
+      <td id="primero">Maria Anders</td>
+      <td class="acciones">Germany</td>
+    </tr>
+    <tr>
+      <td>Ernst Handel</td>
+      <td>Roland Mendel</td>
+      <td class="acciones">Austria</td>
+    </tr>
+    <tr>
+      <td>Island Trading</td>
+      <td>Helen Bennett</td>
+      <td>UK</td>
+    </tr>
+    <tr id="ultimo">
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Giovanni Rovelli</td>
+      <td>Italy</td>
+    </tr>
+  </tbody>  
+</table>
+{{!-- Endof test table --}}
+        </div>
+             <div>
+        <p class="lead">
+          <h5>Export Report to:</h5>
+          <button id="json" class="btn btn-info btn-sm">JSON</button>
+          <button id="csv" class="btn btn-info btn-sm">CSV</button>
+          <button id="pdf" class="btn btn-info btn-sm">PDF</button>
+        </p>
       </div>
     </div>
   </div>
@@ -127,5 +147,9 @@
   </div>
 </div>
 
+<script src="https://gitcdn.xyz/repo/FuriosoJack/TableHTMLExport/v1.0.0/src/tableHTMLExport.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="src/tableHTMLExport.js"></script>
 <script src="/js/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>

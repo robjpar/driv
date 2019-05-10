@@ -256,3 +256,8 @@ $submitBtn.on('click', function(event) {
   handleFormSubmit();
 }
 })
+
+// Export Table
+$("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});   
+$("#tableCompany").tableHTMLExport({type:'csv',filename:'tablaLicencias.csv',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+$("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});

@@ -31,7 +31,7 @@ var API = {
   },
   getData: function(query) {
     return $.ajax({
-      url: 'api/donors?ref_type=' + query.referralType + '&org=' + query.hospitals,
+      url: 'api/donors?ref_type=' + query.referralType + '&org=' + query.hospitals + "&min_age=" + query.ageMin + "&max_age=" + query.ageMax + "&follow_up=" + query.needsFollowup,
       type: 'GET'
     });
   },
@@ -70,7 +70,6 @@ function displayHospitals() {
     data = data.map(function(element) {
       return element.name;
     }).sort();
-    console.log(data);
     let hospitalList = [];
     for (var i = 0; i < data.length; i++) {
       hospitalList.push(createHospitalRow(data[i], i));
@@ -119,30 +118,24 @@ var handleFormSubmit = function(event) {
   // event.preventDefault();
 
   var newHospital = "";
+  var followUp;
 
-  if ($hospitals.val() !== null) {
-    newHospital = $hospitals.val().trim()
+  if ($("#needs-followup").prop('checked')) {
+    followUp = "yes";
+  } else {
+    followUp = "no";
   }
-  
+
   var userRequest = {
     referralType: $referralInformation.val().trim(),
-    ageMin: parseInt($ageMin.val()),
-    ageMax: parseInt($ageMax.val()),
+    ageMin: $ageMin.val() == "" ? 0 : parseInt($ageMin.val()),
+    ageMax: $ageMax.val() == "" ? 1000 : parseInt($ageMax.val()),
     hospitals: newHospital,
-    // needsFollowup: $needsFollowup.val().trim(),
+    needsFollowup: followUp,
   };
 
-  console.log(userRequest);
 
   API.getData(userRequest).then(function(data) {
-    console.log(data);
-    // console.log(data);
-
-    // var td = $("<td>");
-    // var closingtd = $("</td>")
-    // var tr = $("<tr>");
-    // var closingtr = $("</tr>");
-    // var displayInfo = [];
 
       for (var i = 0; i < data.length; i++) {
         var referralId = data[i].donorId;
@@ -151,7 +144,7 @@ var handleFormSubmit = function(event) {
         var organization = data[i].Organization.name;
         // var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
         
-        $referralData.append($('<tr><td>'+ referralId + '</td><td>' + referralType + '</td><td>' + age + '</td><td>' + organization + '</td><td><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '"></td></tr>'));
+        $referralData.append($('<tr><td>'+ referralId + '</td><td>' + referralType + '</td><td>' + age + '</td><td>' + organization + '</td><td><input class="form-check-input case-followup" type="checkbox" value=false id="'+ referralId + '"></td></tr>'));
         // $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
         
         // displayInfo.push(referralId, referralType, age, organization, $checkbox);
@@ -182,7 +175,7 @@ var handleFormSubmit = function(event) {
 
 $submitBtn.on('click', function(event) {
   event.preventDefault();
-  console.log($ageMin.val(), $ageMax.val());
+
   if ($ageMin.val() < 0) {
     // jQuery('#myModal').modal('show');
     alert("Please make sure to only enter numbers greater than 0")
@@ -216,7 +209,7 @@ $('#clear').on('click', function(event) {
   $("#referral-info").empty();
 })
 
-$(".needs-followup").on("click", function(event) {
+$(".case-followup").on("click", function(event) {
   $(this).val() = true;
   console.log($(this).val());
   event.preventDefault();

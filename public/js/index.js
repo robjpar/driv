@@ -41,11 +41,11 @@ var API = {
       type: 'GET'
     });
   },
-  updateReferral: function(id, condition) {
+  updateReferral: function(id) {
     return $.ajax({
-      url: 'api/needsfollowup/' + id,
+      url: 'api/donors',
       type: 'PUT',
-      data: condition
+      data: id
     });
   },
   getAdmin: (userId) => {
@@ -119,6 +119,10 @@ var handleFormSubmit = function(event) {
 
   var newHospital = "";
   var followUp;
+
+  if ($hospitals.val() !== null) {
+    newHospital = $hospitals.val().trim()
+  }
 
   if ($("#needs-followup").prop('checked')) {
     followUp = "yes";
@@ -210,18 +214,25 @@ $('#clear').on('click', function(event) {
   event.preventDefault();
 })
 
-$(".case-followup").on("click", function(event) {
-  $(this).val() = true;
-  console.log($(this).val());
-  event.preventDefault();
-  var id = $(this).data("id");
-  var followup = $(this).val();
+$(document).on("click", ".case-followup", function(event) {
 
-  var followupNeeded = {
-    value: followup
+  var id = $(this).attr('id');
+  var followup = true;
+
+  if ($(".case-followup").prop("checked")) {
+    followup = "yes"
+  } else {
+    followup = "no"
   }
   
-  API.updateReferral(id, followupNeeded);
+  console.log($(this).data("id"));
+
+  var followupNeeded = {
+    donorId: id,
+    isFollowUp: followup
+  }
+  
+  API.updateReferral(followupNeeded);
 });
 
 });

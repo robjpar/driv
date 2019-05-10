@@ -21,7 +21,8 @@ const transform = csv.transform(function(row) {
     wasReferredOnVent: row['ReferredOnVent'] === 'Yes' ? true : false,
     wasVentRemovedPriorRef: row['RemovedFromVentPriorToReferral?'] === 'Yes' ? true : false,
     extubationOn: !isNaN(new Date(row['Extubation PCT'])) ? new Date(row['Extubation PCT']) : null,
-    wasHeartBeating: row['WasHeartBeatingg?'] === 'Yes' ? true : false
+    wasHeartBeating: row['WasHeartBeatingg?'] === 'Yes' ? true : false,
+    isFollowUp: false
   };
 
   const organization = {

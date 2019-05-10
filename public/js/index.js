@@ -3,7 +3,7 @@ $(document).ready(() => {
 var $referralInformation = $('#referral-type');
 var $ageMin = $("#min-age-input");
 var $ageMax = $("#max-age-input");
-var $hospitals = $("#hospitals");
+var $hospitals = $("#hospitalchoice");
 var $displayedHospitals = $(".hospitals");
 var $needsFollowup = $("#needs-followup");
 var $referralData = $("#referral-info");
@@ -80,9 +80,7 @@ function displayHospitals() {
 }
 
 function createHospitalRow(hospitalData, idNumber) {
-  // console.log(hospitalData);
-
-  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="' + idNumber + '" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  var newHospital = $('<option value="' + hospitalData + '">' + hospitalData + '</option>');
   return newHospital;
 }
 
@@ -90,6 +88,8 @@ function renderHospitalList(rows) {
   // $hospitals
   $hospitals.append(rows);
 }
+
+displayHospitals();
 
 // if user is admin, load admin button
 loadAdminButton = () => {
@@ -158,7 +158,7 @@ var handleFormSubmit = function(event) {
         var referralType = data[i].referralType;
         var age = data[i].age;
         var organization = data[i].Organization.name;
-        var $checkbox = $('<br><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
+        var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
         $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
         // displayInfo.push(referralId, referralType, age, organization, $checkbox);
         // displayInfo.push("R190500", "OTE", 45, "Oregon Health and Sciences University", $checkbox)

@@ -118,23 +118,24 @@ $(document).on('click', '#logout-button', () => {
 var handleFormSubmit = function(event) {
   // event.preventDefault();
 
-  if ($hospitals.val() === null) {
-    return $hospitals
-  } else {
-    $hospitals = $hospitals.val().trim()
+  var newHospital = "";
+
+  if ($hospitals.val() !== null) {
+    newHospital = $hospitals.val().trim()
   }
   
   var userRequest = {
     referralType: $referralInformation.val().trim(),
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: $hospitals,
+    hospitals: newHospital,
     // needsFollowup: $needsFollowup.val().trim(),
   };
 
   console.log(userRequest);
 
   API.getData(userRequest).then(function(data) {
+    console.log(data);
     // console.log(data);
 
     // var td = $("<td>");
@@ -143,12 +144,10 @@ var handleFormSubmit = function(event) {
     // var closingtr = $("</tr>");
     // var displayInfo = [];
 
-
       for (var i = 0; i < data.length; i++) {
         var referralId = data[i].donorId;
         var referralType = data[i].referralType;
-        var minAge = data[i].minAge;
-        var maxAge = data[i].maxAge;
+        var age = data[i].age;
         var organization = data[i].Organization.name;
         // var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
         

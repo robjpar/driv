@@ -3,7 +3,7 @@ $(document).ready(() => {
 var $referralInformation = $('#referral-type');
 var $ageMin = $("#min-age-input");
 var $ageMax = $("#max-age-input");
-var $hospitals = $("#hospitals");
+var $hospitals = $("#hospitalchoice");
 var $displayedHospitals = $(".hospitals");
 var $needsFollowup = $("#needs-followup");
 var $referralData = $("#referral-info");
@@ -80,9 +80,7 @@ function displayHospitals() {
 }
 
 function createHospitalRow(hospitalData, idNumber) {
-  // console.log(hospitalData);
-
-  var newHospital = $('<input class="form-check-input hospitals" type="checkbox" value="' + idNumber + '" id="'+ hospitalData + '"><label class="form-check-label" for="' + hospitalData +'">'+ hospitalData + '</label><br>');   
+  var newHospital = $('<option value="' + hospitalData + '">' + hospitalData + '</option>');
   return newHospital;
 }
 
@@ -90,6 +88,8 @@ function renderHospitalList(rows) {
   // $hospitals
   $hospitals.append(rows);
 }
+
+displayHospitals();
 
 // if user is admin, load admin button
 loadAdminButton = () => {
@@ -113,56 +113,48 @@ $(document).on('click', '#logout-button', () => {
   });
 })
 
-$(".form-check-input.hospitals").on("click", function() {
-    console.log("it's Working!");
-    console.log($(this).val());
-    if ($(this).val() === false) {
-      $(this).val() = true;
-      queryHospitals.push($(this).data("id"))
-    } else {
-      $(this).val() = false
-      for (var i = 0; i < queryHospitals.length; i++) {
-        if (queryHospitals[i] === $(this).data("id")) {
-          queryHospitals.splice(i, 1)
-        }
-      }
-    }
-  })
-
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   // event.preventDefault();
+
+  if ($hospitals.val() === null) {
+    return $hospitals
+  } else {
+    $hospitals = $hospitals.val().trim()
+  }
   
   var userRequest = {
     referralType: $referralInformation.val().trim(),
-
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: $hospitals.val().trim(),
+    hospitals: $hospitals,
     // needsFollowup: $needsFollowup.val().trim(),
   };
 
   console.log(userRequest);
 
   API.getData(userRequest).then(function(data) {
-    console.log(data);
+    // console.log(data);
 
-    var td = $("<td>");
-    var closingtd = $("</td>")
-    var tr = $("<tr>");
-    var closingtr = $("</tr>");
-    var displayInfo = [];
+    // var td = $("<td>");
+    // var closingtd = $("</td>")
+    // var tr = $("<tr>");
+    // var closingtr = $("</tr>");
+    // var displayInfo = [];
+
 
       for (var i = 0; i < data.length; i++) {
-        console.log(data[i]);
         var referralId = data[i].donorId;
         var referralType = data[i].referralType;
         var minAge = data[i].minAge;
         var maxAge = data[i].maxAge;
         var organization = data[i].Organization.name;
-        var $checkbox = $('<br><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
-        $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
+        // var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
+        
+        $referralData.append($('<tr><td>'+ referralId + '</td><td>' + referralType + '</td><td>' + age + '</td><td>' + organization + '</td><td><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '"></td></tr>'));
+        // $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
+        
         // displayInfo.push(referralId, referralType, age, organization, $checkbox);
         // displayInfo.push("R190500", "OTE", 45, "Oregon Health and Sciences University", $checkbox)
       }
@@ -226,8 +218,8 @@ $('#clear').on('click', function(event) {
 })
 
 $(".needs-followup").on("click", function(event) {
-
   $(this).val() = true;
+  console.log($(this).val());
   event.preventDefault();
   var id = $(this).data("id");
   var followup = $(this).val();
@@ -236,7 +228,7 @@ $(".needs-followup").on("click", function(event) {
     value: followup
   }
   
-  API.updateReferral($(this).id, followupNeeded);
+  API.updateReferral(id, followupNeeded);
 });
 
 });

@@ -136,9 +136,10 @@ var handleFormSubmit = function(event) {
   
   var userRequest = {
     referralType: $referralInformation.val().trim(),
-    // ageMin: parseInt($ageMin.val()),
-    // ageMax: parseInt($ageMax.val()),
-    hospitals: "Good Samaritan Medical Center - Corvallis",
+
+    ageMin: parseInt($ageMin.val()),
+    ageMax: parseInt($ageMax.val()),
+    hospitals: $hospitals.val().trim(),
     // needsFollowup: $needsFollowup.val().trim(),
   };
 
@@ -154,9 +155,11 @@ var handleFormSubmit = function(event) {
     var displayInfo = [];
 
       for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
         var referralId = data[i].donorId;
         var referralType = data[i].referralType;
-        var age = data[i].age;
+        var minAge = data[i].minAge;
+        var maxAge = data[i].maxAge;
         var organization = data[i].Organization.name;
         var $checkbox = $('<br><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
         $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
@@ -190,12 +193,12 @@ $submitBtn.on('click', function(event) {
   event.preventDefault();
   console.log($ageMin.val(), $ageMax.val());
   if ($ageMin.val() < 0) {
-    $('#error-modal').modal('show');
-    // alert("Please make sure to only enter numbers greater than 0")
+    // jQuery('#myModal').modal('show');
+    alert("Please make sure to only enter numbers greater than 0")
   }
   if ($ageMax.val() < 0) {
-    $('#error-modal').modal('show');
-    // alert("Please make sure to only enter numbers greater than 0")
+    // jQuery('#myModal').modal('show');
+    alert("Please make sure to only enter numbers greater than 0")
   } 
   else {
   handleFormSubmit();
@@ -218,7 +221,12 @@ $('#pdf').on('click', function(event) {
   event.preventDefault();
 });
 
-$("#needs-followup").on("click", function(event) {
+$('#clear').on('click', function(event) {
+  $("#referral-info").empty();
+})
+
+$(".needs-followup").on("click", function(event) {
+
   $(this).val() = true;
   event.preventDefault();
   var id = $(this).data("id");

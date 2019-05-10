@@ -17,18 +17,15 @@ const API = {
   }
 };
 // Nav buttons
-loadSearchButton = () => {
-  let searchBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Search Records').attr('id', 'search-button').attr('href', '/').attr('role', 'button');
-  $('#indexnav').append(searchBtn);
+loadAdminButton = () => {
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  $('.navbar').append(adminBtn);
 }
 
 loadLogoutButton = () => {
   let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
-  $('#indexnav').append(logoutBtn);
+  $('.navbar').append(logoutBtn);
 }
-
-loadSearchButton();
-loadLogoutButton();
 
 let username = sessionStorage.getItem('email');
 API.getAdmin(username).then(data => {

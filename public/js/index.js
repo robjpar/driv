@@ -99,7 +99,6 @@ loadAdminButton = () => {
 loadLogoutButton = () => {
   let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
   $('#index-nav').append(logoutBtn);
-
 } 
 
 

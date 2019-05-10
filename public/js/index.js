@@ -113,22 +113,6 @@ $(document).on('click', '#logout-button', () => {
   });
 })
 
-$(".form-check-input.hospitals").on("click", function() {
-    console.log("it's Working!");
-    console.log($(this).val());
-    if ($(this).val() === false) {
-      $(this).val() = true;
-      queryHospitals.push($(this).data("id"))
-    } else {
-      $(this).val() = false
-      for (var i = 0; i < queryHospitals.length; i++) {
-        if (queryHospitals[i] === $(this).data("id")) {
-          queryHospitals.splice(i, 1)
-        }
-      }
-    }
-  })
-
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
@@ -221,8 +205,9 @@ $('#pdf').on('click', function(event) {
   event.preventDefault();
 });
 
-$("#needs-followup").on("click", function(event) {
+$(".needs-followup").on("click", function(event) {
   $(this).val() = true;
+  console.log($(this).val());
   event.preventDefault();
   var id = $(this).data("id");
   var followup = $(this).val();
@@ -231,7 +216,7 @@ $("#needs-followup").on("click", function(event) {
     value: followup
   }
   
-  API.updateReferral($(this).id, followupNeeded);
+  API.updateReferral(id, followupNeeded);
 });
 
 });

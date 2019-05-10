@@ -106,7 +106,7 @@ module.exports = function(app) {
   // /api/donors
   // reg.body = {
   //     donorId: R1902502,
-  //     isFollowUp: true
+  //     isFollowUp: "yes"
   // }
   app.put("/api/donors", function(req, res) {
     if (!req.user) { // user not logged in

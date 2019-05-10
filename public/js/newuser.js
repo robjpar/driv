@@ -6,8 +6,26 @@ const API = {
       data: {id: userId},
       type: 'POST'
     });
+  },
+  logout: (userId) => {
+    sessionStorage.removeItem('email');
+    return $.ajax({
+      url: '/logout',
+      type: 'GET',
+      data: {user: userId}
+    })
   }
 };
+// Nav buttons
+loadAdminButton = () => {
+  let adminBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Admin').attr('id', 'admin-button').attr('href', '/new-user').attr('role', 'button');
+  $('.navbar').append(adminBtn);
+}
+
+loadLogoutButton = () => {
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
+  $('.navbar').append(logoutBtn);
+}
 
 let username = sessionStorage.getItem('email');
 API.getAdmin(username).then(data => {
@@ -18,7 +36,21 @@ API.getAdmin(username).then(data => {
   }
 });
 
+// logout functionality when logout button clicked
+$(document).on('click', '#logout-button', () => {
+  // Route for logging user out
+  API.logout(username).then(data =>  {
+    window.location = '/';
+  });
+});
+
 $(document).ready(function() {
+  if (username === null) {
+    window.location = '/login';
+  } else {
+  loadAdminButton();
+  loadLogoutButton();
+
   function signUpUser(email, password, admin) {
     $.post('/api/new-user', {
       email: email,
@@ -47,6 +79,7 @@ $(document).ready(function() {
     $('#email-input').val('');
     $('#password-input').val('');
   });
+  };
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
@@ -55,21 +88,4 @@ $(document).ready(function() {
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   }
-});
-
-// Nav buttons
-loadLogoutButton = () => {
-  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
-  $('#index-nav').append(logoutBtn);
-}
-
-loadSearchButton = () => {
-  let searchBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Return to Search').attr('id', 'search-button').attr('href', '/').attr('role', 'button');
-  $('#index-nav').append(searchBtn);
-}
-
-
-$(document).ready(() => {
-  loadLogoutButton();
-  loadSearchButton();
 });

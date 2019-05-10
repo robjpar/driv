@@ -97,13 +97,14 @@ loadAdminButton = () => {
   $('#index-nav').append(adminBtn);
 }
 loadLogoutButton = () => {
-  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm m-1').text('Logout').attr('id', 'logout-button').attr('href', '/login').attr('role', 'button');
+  let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
   $('#index-nav').append(logoutBtn);
+
 } 
 
+
 // logout functionality
-$('#logout-button').on('click', () => {
-  console.log(username);
+$(document).on('click', '#logout-button', () => {
   // Route for logging user out
   API.logout(username).then(data =>  {
     location.reload();
@@ -202,6 +203,12 @@ $submitBtn.on('click', function(event) {
 }
 })
 
+
+// Export Table
+$("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});   
+$("#tableCompany").tableHTMLExport({type:'csv',filename:'tablaLicencias.csv',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+$("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+
 $("#needs-followup").on("click", function(event) {
   $(this).val() = true;
   event.preventDefault();
@@ -214,3 +221,4 @@ $("#needs-followup").on("click", function(event) {
   
   API.updateReferral($(this).id, followupNeeded);
 })
+

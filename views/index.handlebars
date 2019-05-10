@@ -1,6 +1,14 @@
-
 {{!-- dont change this id please :) --}}
-<div id="index-loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div id="index-loader" class="lds-roller">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 
 <span id="to-hide">
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark text-light justify-content-between">
@@ -8,15 +16,18 @@
     <div id="index-nav"></div>
   </nav>
 
-<div id="indexcontainer" class="container p-3 shadow-sm">
-  <div class="row">
-    <div class="col-12">
-      <h2> {{msg}} <span id="headtext">Select your criteria and click "Search"</span></h2>
+  <div id="indexcontainer" class="container p-3 shadow-sm">
 
-      <form>
+    <div class="row">
+      <div class="col">
+        <h4>Select your criteria and click "Search"</h4>
+      </div>
+    </div>
 
-        <div class="col-4 border-right border-info">
-          <div class="">
+    <div class="row">
+      <div class="col-4 border-right border-info">
+        <form>
+          <div>
             <h5>Referral Type</h5>
             <div class="form-group">
               <select class="form-control" id="referral-type">
@@ -27,53 +38,92 @@
               </select>
             </div>
           </div>
-
-          <div class="">
+          <div>
             <h5>Enter Age</h5>
             <div class="row">
               <div class="form-group col">
-                <label for="min-age-input" class="col col-form-label">Min</label>
-                <input class="form-control" type="number" value="" id="min-age-input">
+                <input class="form-control" type="number" value="" id="min-age-input" placeholder="Minimum">
               </div>
               <div class="form-group col">
-                <label for="max-age-input" class="col col-form-label">Max</label>
-                <input class="form-control" type="number" value="" id="max-age-input">
+                <input class="form-control" type="number" value="" id="max-age-input" placeholder="Maximum">
               </div>
             </div>
           </div>
-
           <h5>Follow-up</h5>
-          <div class="form-check" id="needs-followup">
+          <div class="form-check mb-2" id="needs-followup">
             <input class="form-check-input" type="checkbox" value="" id="needs-followup">
             <label class="form-check-label" for="needs-followup">
               Include cases that need follow-up?
             </label>
           </div>
 
-          <div class="">
-            <h5>Choose Hospital/s</h5>
-            <div class="form-check" id="hospitals">
-              {{!-- <input class="form-check-input" type="checkbox" value="" id="example">
-                  <label class="form-check-label" for="hospitals">
-                    Default checkbox
-                  </label> --}}
-            </div>
-
+          {{!-- DROP DOWN TEST --}}
+          <div>
+            <h5>Choose Hospital</h5>
+            <select id="hospitalchoice" class="mdb-select colorful-select dropdown-primary lg-form">
+              <option value="" disabled selected>Select a Hospital</option>
+              <div id="hospitallist"></div>
+            </select>
           </div>
-        </div>
-        <button id="submit" class="btn btn-sm btn-info mt-2">Search</button>
-      </form>
+          {{!-- DROP DOWN TEST --}}
+          <button id="submit" class="btn btn-sm btn-info mt-2">Search</button>
+        </form>
+      </div>
 
-      {{!-- <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
+      <div class="col-8">
+        <h5>Search Results</h5>
+        {{!-- <ul id="referral-info" class="list-group">
+          {{#each referrals}}
           <li data-id="{{this.id}}" class="list-group-item">
             <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
-          {{/each}}
+          {{each}}
         </ul> --}}
-
+        <div id="searchresults">
+          {{!-- This is where the results will populate --}}
+          
+          {{!-- Test Table --}}
+<table id="tableCompany">
+  <thead class="theme-dark">
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th class='acciones'>Country</th>
+  </tr>    
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alfreds Futterkiste</td>
+      <td id="primero">Maria Anders</td>
+      <td class="acciones">Germany</td>
+    </tr>
+    <tr>
+      <td>Ernst Handel</td>
+      <td>Roland Mendel</td>
+      <td class="acciones">Austria</td>
+    </tr>
+    <tr>
+      <td>Island Trading</td>
+      <td>Helen Bennett</td>
+      <td>UK</td>
+    </tr>
+    <tr id="ultimo">
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Giovanni Rovelli</td>
+      <td>Italy</td>
+    </tr>
+  </tbody>  
+</table>
+{{!-- Endof test table --}}
+        </div>
+             <div>
+        <p class="lead">
+          <h5>Export Report to:</h5>
+          <button id="json" class="btn btn-info btn-sm">JSON</button>
+          <button id="csv" class="btn btn-info btn-sm">CSV</button>
+          <button id="pdf" class="btn btn-info btn-sm">PDF</button>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -94,6 +144,7 @@
     </div>
 
 </div>
+
 </span>
 
 <div class="modal" id="error-modal">
@@ -117,16 +168,9 @@
   </div>
 </div>
 
+<script src="https://gitcdn.xyz/repo/FuriosoJack/TableHTMLExport/v1.0.0/src/tableHTMLExport.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="src/tableHTMLExport.js"></script>
 <script src="/js/index.js"></script>
-
-{{!-- var slider = document.getElementById('slider');
-
-noUiSlider.create(slider, {
-    start: [20, 80],
-    connect: true,
-    range: {
-        'min': 0,
-        'max': 100
-    }
-}); --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>

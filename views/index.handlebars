@@ -79,20 +79,27 @@
 
     <div class="col-8">
       <h5>Search Results</h5>
-      <ul id="referral-info" class="list-group">
-        {{!-- {{#each referrals}}
-        <li data-id="{{this.id}}" class="list-group-item">
-          <a href="example/{{this.id}}">{{this.text}}</a>
-        </li>
-        {{each}} --}}
-      </ul>
+        <table style='width:100%'>
+          <tr>
+            <th>Referral Number</th>
+            <th>Referral Type</th>
+            <th>Age</th>
+            <th>Organization</th>
+            <th>Case needs follow-up?</th>
+          </tr>
+
+          <div class="tableItems">
+            <tbody id="referral-info"></tbody>
+          </div>
     </div>
 
 </div>
 </span>
 
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal" id="error-modal">
+{{!-- <div class="modal" tabindex="-1" role="dialog" id="error-modal"> --}}
+  <div class="modal-dialog modal-dialog-centered">
+  {{!-- <div class="modal-dialog" role="document"> --}}
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Modal title</h5>

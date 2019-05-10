@@ -48,9 +48,6 @@ $(document).ready(function() {
   if (username === null) {
     window.location = '/login';
   } else {
-  loadAdminButton();
-  loadLogoutButton();
-
   function signUpUser(email, password, admin) {
     $.post('/api/new-user', {
       email: email,

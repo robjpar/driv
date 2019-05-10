@@ -1,3 +1,4 @@
+$(document).ready(() => {
 // Get references to page elements
 var $referralInformation = $('#referral-type');
 var $ageMin = $("#min-age-input");
@@ -65,7 +66,6 @@ var API = {
 };
 
 function displayHospitals() {
-  // $("#age").slider({});
   API.getHospitals().then(function(data) {
     data = data.map(function(element) {
       return element.name;
@@ -100,6 +100,9 @@ loadLogoutButton = () => {
   let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
   $('#index-nav').append(logoutBtn);
 } 
+
+loadAdminButton();
+loadLogoutButton();
 
 
 // logout functionality
@@ -166,23 +169,22 @@ var handleFormSubmit = function(event) {
 }
 
 // Add event listeners to the submit and delete buttons
-$(document).ready(() => {
-  $('#index-loader').show();
-  if (username === null) {
-    window.location = '/login';
-  } else {
-    setTimeout(() => {
-      $('#index-loader').hide();
-      $('#to-hide').show();
-      displayHospitals();
-      API.getAdmin(username).then(data => {
-        if ( data === true ) {
-          loadAdminButton();
-          loadLogoutButton();
-        }
-      });;
-    }, 500);
-  };
+  // $('#index-loader').show();
+  // if (username === null) {
+  //   window.location = '/login';
+  // } else {
+  //   setTimeout(() => {
+  //     $('#index-loader').hide();
+  //     $('#to-hide').show();
+  //     displayHospitals();
+  //     API.getAdmin(username).then(data => {
+  //       if ( data === true ) {
+  //         loadAdminButton();
+  //         loadLogoutButton();
+  //       }
+  //     });;
+  //   }, 500);
+  // };
 
 $submitBtn.on('click', function(event) {
   event.preventDefault();
@@ -227,6 +229,6 @@ $("#needs-followup").on("click", function(event) {
   }
   
   API.updateReferral($(this).id, followupNeeded);
-})
+});
 
 });

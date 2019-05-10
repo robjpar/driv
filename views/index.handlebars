@@ -10,7 +10,7 @@
   <div></div>
 </div>
 
-<span id="to-hide">
+{{!-- <span id="to-hide"> --}}
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark text-light justify-content-between">
     <img id="drivloginimg" src="/styles/drivlogo.png">
     <div id="index-nav"></div>
@@ -72,80 +72,53 @@
 
       <div class="col-8">
         <h5>Search Results</h5>
-        {{!-- <ul id="referral-info" class="list-group">
-          {{#each referrals}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-          </li>
-          {{each}}
-        </ul> --}}
-        <div id="searchresults">
-          {{!-- This is where the results will populate --}}
-          
           {{!-- Test Table --}}
-<table id="tableCompany">
-  <thead class="theme-dark">
-    <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th class='acciones'>Country</th>
-  </tr>    
-  </thead>
-  <tbody>
-    <tr>
-      <td>Alfreds Futterkiste</td>
-      <td id="primero">Maria Anders</td>
-      <td class="acciones">Germany</td>
-    </tr>
-    <tr>
-      <td>Ernst Handel</td>
-      <td>Roland Mendel</td>
-      <td class="acciones">Austria</td>
-    </tr>
-    <tr>
-      <td>Island Trading</td>
-      <td>Helen Bennett</td>
-      <td>UK</td>
-    </tr>
-    <tr id="ultimo">
-      <td>Magazzini Alimentari Riuniti</td>
-      <td>Giovanni Rovelli</td>
-      <td>Italy</td>
-    </tr>
-  </tbody>  
-</table>
+              <table id="tableCompany">
+                <thead class="theme-dark">
+                  <tr>
+                    <th>Company</th>
+                    <th>Contact</th>
+                    <th class='acciones'>Country</th>
+                </tr>    
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alfreds Futterkiste</td>
+                    <td id="primero">Maria Anders</td>
+                    <td class="acciones">Germany</td>
+                  </tr>
+                  <tr>
+                    <td>Ernst Handel</td>
+                    <td>Roland Mendel</td>
+                    <td class="acciones">Austria</td>
+                  </tr>
+                  <tr>
+                    <td>Island Trading</td>
+                    <td>Helen Bennett</td>
+                    <td>UK</td>
+                  </tr>
+                  <tr id="ultimo">
+                    <td>Magazzini Alimentari Riuniti</td>
+                    <td>Giovanni Rovelli</td>
+                    <td>Italy</td>
+                  </tr>
+                </tbody>  
+              </table>
 {{!-- Endof test table --}}
+
+        <div>
+          <p class="lead">
+            <h5>Export Report to:</h5>
+            <button id="json" class="btn btn-info btn-sm">JSON</button>
+            <button id="csv" class="btn btn-info btn-sm">CSV</button>
+            <button id="pdf" class="btn btn-info btn-sm">PDF</button>
+          </p>
         </div>
-             <div>
-        <p class="lead">
-          <h5>Export Report to:</h5>
-          <button id="json" class="btn btn-info btn-sm">JSON</button>
-          <button id="csv" class="btn btn-info btn-sm">CSV</button>
-          <button id="pdf" class="btn btn-info btn-sm">PDF</button>
-        </p>
       </div>
     </div>
-  </div>
-
-    <div class="col-8">
-      <h5>Search Results</h5>
-        <table style='width:100%'>
-          <tr>
-            <th>Referral Number</th>
-            <th>Referral Type</th>
-            <th>Age</th>
-            <th>Organization</th>
-            <th>Case needs follow-up?</th>
-          </tr>
-
-          <div class="tableItems">
-            <tbody id="referral-info"></tbody>
-          </div>
-    </div>
-
 </div>
 
-</span>
+{{!-- </span> --}}
 
 <div class="modal" id="error-modal">
 {{!-- <div class="modal" tabindex="-1" role="dialog" id="error-modal"> --}}

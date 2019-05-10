@@ -136,8 +136,8 @@ var handleFormSubmit = function(event) {
   
   var userRequest = {
     referralType: $referralInformation.val().trim(),
-    // ageMin: parseInt($ageMin.val()),
-    // ageMax: parseInt($ageMax.val()),
+    ageMin: parseInt($ageMin.val()),
+    ageMax: parseInt($ageMax.val()),
     hospitals: "Good Samaritan Medical Center - Corvallis",
     // needsFollowup: $needsFollowup.val().trim(),
   };
@@ -145,21 +145,24 @@ var handleFormSubmit = function(event) {
   console.log(userRequest);
 
   API.getData(userRequest).then(function(data) {
-    console.log(data);
+    // console.log(data);
 
-    var td = $("<td>");
-    var closingtd = $("</td>")
-    var tr = $("<tr>");
-    var closingtr = $("</tr>");
-    var displayInfo = [];
+    // var td = $("<td>");
+    // var closingtd = $("</td>")
+    // var tr = $("<tr>");
+    // var closingtr = $("</tr>");
+    // var displayInfo = [];
 
       for (var i = 0; i < data.length; i++) {
         var referralId = data[i].donorId;
         var referralType = data[i].referralType;
         var age = data[i].age;
         var organization = data[i].Organization.name;
-        var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
-        $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
+        // var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
+        
+        $referralData.append($('<tr><td>'+ referralId + '</td><td>' + referralType + '</td><td>' + age + '</td><td>' + organization + '</td><td><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '"></td></tr>'));
+        // $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
+        
         // displayInfo.push(referralId, referralType, age, organization, $checkbox);
         // displayInfo.push("R190500", "OTE", 45, "Oregon Health and Sciences University", $checkbox)
       }

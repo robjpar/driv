@@ -70,6 +70,7 @@ module.exports = function(app) {
 
   // /api/donors?donor_id=R1902502
   //            &ref_type=TE
+  //            &follow_up=yes | no
   //            &org=Good+Samaritan+Medical+Center+-+Corvallis
   app.get('/api/donors', function(req, res) {
     if (!req.user) { // user not logged in
@@ -78,6 +79,8 @@ module.exports = function(app) {
       const where = {};
       if (req.query.donor_id) where.donorId = req.query.donor_id;
       if (req.query.ref_type) where.referralType = req.query.ref_type;
+      if (req.query.follow_up === 'yes') where.isFollowUp = true;
+      if (req.query.follow_up === 'no') where.isFollowUp = false;
 
       const inclWhere = {};
       if (req.query.org) inclWhere.name = req.query.org;

@@ -15,7 +15,7 @@ var $displayedReferrals = $("#referral-info");
 let username = sessionStorage.getItem('email');
 
 
-$('#to-hide').hide();
+// $('#to-hide').hide();
 
 // API object for all requests
 var API = {

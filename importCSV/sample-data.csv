@@ -1,4 +1,4 @@
-﻿EyeDonorId,Referral Type,ReferredOn,Age,AgeUnits,AdmissionDiagnosis,PreliminaryCauseOfDeath,Asystol Death PCT,ReferredOnVent,RemovedFromVentPriorToReferral?,Extubation PCT,WasHeartBeatingg?,Referring Organization
+EyeDonorId,Referral Type,ReferredOn,Age,AgeUnits,AdmissionDiagnosis,PreliminaryCauseOfDeath,Asystol Death PCT,ReferredOnVent,RemovedFromVentPriorToReferral?,Extubation PCT,WasHeartBeatingg?,Referring Organization
 R1902500,TE,2/25/2019 8:09,54,Y,Sepsis 2/2 ETOH Hepatitis,,2/24/2019 23:10,No,No,,No,Good Samaritan Medical Center - Corvallis
 R1902501,TE,2/25/2019 8:09,72,Y,Flare of ILD,Interstitial Lung disease,2/24/2019 23:40,No,No,,No,Kaiser Sunnyside Medical Center
 R1902502,RO,2/25/2019 8:47,81,Y,metabolic acidosis,Metabolic Acidosis,2/24/2019 23:22,No,No,,No,St. John's Medical Center

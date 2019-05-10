@@ -213,7 +213,6 @@ $submitBtn.on('click', function(event) {
 }
 })
 
-
 // Export Table
 $('#json').on('click', function(event) {
   $("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
@@ -234,6 +233,5 @@ $("#needs-followup").on("click", function(event) {
   event.preventDefault();
   API.updateReferral($(this).id);
 })
-
 
 });

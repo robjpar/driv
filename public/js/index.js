@@ -122,7 +122,7 @@ var handleFormSubmit = function(event) {
     referralType: $referralInformation.val().trim(),
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: "Good Samaritan Medical Center - Corvallis",
+    hospitals: $hospitals.val().trim(),
     // needsFollowup: $needsFollowup.val().trim(),
   };
 
@@ -138,9 +138,11 @@ var handleFormSubmit = function(event) {
     // var displayInfo = [];
 
       for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
         var referralId = data[i].donorId;
         var referralType = data[i].referralType;
-        var age = data[i].age;
+        var minAge = data[i].minAge;
+        var maxAge = data[i].maxAge;
         var organization = data[i].Organization.name;
         // var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
         
@@ -177,12 +179,12 @@ $submitBtn.on('click', function(event) {
   event.preventDefault();
   console.log($ageMin.val(), $ageMax.val());
   if ($ageMin.val() < 0) {
-    $('#error-modal').modal('show');
-    // alert("Please make sure to only enter numbers greater than 0")
+    // jQuery('#myModal').modal('show');
+    alert("Please make sure to only enter numbers greater than 0")
   }
   if ($ageMax.val() < 0) {
-    $('#error-modal').modal('show');
-    // alert("Please make sure to only enter numbers greater than 0")
+    // jQuery('#myModal').modal('show');
+    alert("Please make sure to only enter numbers greater than 0")
   } 
   else {
   handleFormSubmit();
@@ -204,6 +206,10 @@ $('#pdf').on('click', function(event) {
   $("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
   event.preventDefault();
 });
+
+$('#clear').on('click', function(event) {
+  $("#referral-info").empty();
+})
 
 $(".needs-followup").on("click", function(event) {
   $(this).val() = true;

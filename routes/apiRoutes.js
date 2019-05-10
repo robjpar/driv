@@ -95,7 +95,7 @@ module.exports = function(app) {
   });
 
   // /api/organizations?name=Good+Samaritan+Medical+Center+-+Corvallis
-  //                   &list=donors
+  //                   &donors=yes
   app.get('/api/organizations', function(req, res) {
     if (!req.user) { // user not logged in
       res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
@@ -103,7 +103,7 @@ module.exports = function(app) {
       const where = {};
       if (req.query.name) where.name = req.query.name;
 
-      const include = req.query.list === 'donors' ? [db.Donor] : undefined;
+      const include = req.query.donors === 'yes' ? [db.Donor] : undefined;
 
       db.Organization.findAll({
         where,

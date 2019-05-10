@@ -103,6 +103,32 @@ module.exports = function(app) {
     }
   });
 
+  // /api/donors
+  // reg.body = {
+  //     donorId: R1902502,
+  //     isFollowUp: true
+  // }
+  app.put("/api/donors", function(req, res) {
+    if (!req.user) { // user not logged in
+      res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
+    } else { // user logged in
+      const update = {
+        isFollowUp: false
+      };
+      if (req.body.isFollowUp === "yes") update.isFollowUp = true;
+      const where = {
+        donorId: 0
+      };
+      if (req.body.donorId) where.donorId = req.body.donorId;
+
+      db.Donor.update(update, {
+        where
+      }).then(function(results) {
+        res.json(results);
+      });
+    }
+  });
+
   // /api/organizations?name=Good+Samaritan+Medical+Center+-+Corvallis
   //                   &donors=yes
   app.get('/api/organizations', function(req, res) {

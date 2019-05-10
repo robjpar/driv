@@ -213,7 +213,6 @@ $submitBtn.on('click', function(event) {
 }
 })
 
-
 // Export Table
 $('#json').on('click', function(event) {
   $("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});

@@ -40,10 +40,11 @@ var API = {
       type: 'GET'
     });
   },
-  updateReferral: function(id) {
+  updateReferral: function(id, condition) {
     return $.ajax({
       url: 'api/needsfollowup/' + id,
-      type: 'UPDATE'
+      type: 'PUT',
+      data: condition
     });
   },
   getAdmin: (userId) => {
@@ -98,7 +99,8 @@ loadAdminButton = () => {
 loadLogoutButton = () => {
   let logoutBtn = $('<a>').addClass('btn btn-info btn-sm float-right m-1').text('Logout').attr('id', 'logout-button').attr('role', 'button');
   $('#index-nav').append(logoutBtn);
-}
+} 
+
 
 // logout functionality
 $(document).on('click', '#logout-button', () => {
@@ -133,50 +135,35 @@ var handleFormSubmit = function(event) {
     referralType: $referralInformation.val().trim(),
     // ageMin: parseInt($ageMin.val()),
     // ageMax: parseInt($ageMax.val()),
-    hospitals: "Oregon Health and Sciences University",
+    hospitals: "Good Samaritan Medical Center - Corvallis",
     // needsFollowup: $needsFollowup.val().trim(),
   };
 
   console.log(userRequest);
 
   API.getData(userRequest).then(function(data) {
+    console.log(data);
 
-    var table = $("<table style='width:100%><tr><th>Referral Number</th><th>Referral Type</th><th>Age</th><th>Organization</th><th>Case needs follow-up?</th>");
     var td = $("<td>");
-    var $referrals = data.map(function(referral) {
-      var displayInfo = [];
-      var referralId = td.text(referral.donorId);
-      var referralType = td.text(referral.referralType);
-      var age = td.text(referral.age);
-      var organization = td.text(referral.organization);
-      var $checkbox = $('<br><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referral.id + '">')
-      // displayInfo.push(referralId, referralType, age, organization, $checkbox);
-      displayInfo.push("R190500", "OTE", 45, "Oregon Health and Sciences University", $checkbox)
-      return displayInfo;  
+    var closingtd = $("</td>")
+    var tr = $("<tr>");
+    var closingtr = $("</tr>");
+    var displayInfo = [];
+
+      for (var i = 0; i < data.length; i++) {
+        var referralId = data[i].donorId;
+        var referralType = data[i].referralType;
+        var age = data[i].age;
+        var organization = data[i].Organization.name;
+        var $checkbox = $('<br><input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
+        $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
+        // displayInfo.push(referralId, referralType, age, organization, $checkbox);
+        // displayInfo.push("R190500", "OTE", 45, "Oregon Health and Sciences University", $checkbox)
+      }
     })
-    $referralData.append(table).append($referrals);
-  })
+    // return displayInfo;
+    // $referralData.append(table).append($referrals);
 }
-
-//   API.saveExample(example).then(function() {
-//     refreshExamples();
-//   });
-
-//   $exampleText.val('');
-//   $exampleDescription.val('');
-// };
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-// var handleDeleteBtnClick = function() {
-//   var idToDelete = $(this)
-//     .parent()
-//     .attr('data-id');
-
-//   API.deleteExample(idToDelete).then(function() {
-//     refreshExamples();
-//   });
-// };
 
 // Add event listeners to the submit and delete buttons
 $(document).ready(() => {
@@ -195,27 +182,51 @@ $(document).ready(() => {
         }
       });;
     }, 500);
-    
-  }
-});
+  };
 
 $submitBtn.on('click', function(event) {
   event.preventDefault();
   console.log($ageMin.val(), $ageMax.val());
-  if ($ageMin.val() < 0 || $ageMin.val() > 80) {
-    // $('#myModal').modal('toggle');
-    alert("Please make sure to only enter numbers between 0 and 80.")
+  if ($ageMin.val() < 0) {
+    $('#error-modal').modal('show');
+    // alert("Please make sure to only enter numbers greater than 0")
   }
-  if ($ageMax.val() < 0 || $ageMax.val() > 80) {
-    // $('#myModal').modal('toggle');
-    alert("Please make sure to only enter numbers between 0 and 80.")
+  if ($ageMax.val() < 0) {
+    $('#error-modal').modal('show');
+    // alert("Please make sure to only enter numbers greater than 0")
   } 
   else {
   handleFormSubmit();
 }
 })
 
-$("#needs-followup").on("click", function(event) {
+// Export Table
+$('#json').on('click', function(event) {
+  $("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
   event.preventDefault();
-  API.updateReferral($(this).id);
+});
+
+$('#csv').on('click', function(event) {
+  $("#tableCompany").tableHTMLExport({type:'csv',filename:'tablaLicencias.csv',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});  
+  event.preventDefault();
+});
+
+$('#pdf').on('click', function(event) {
+  $("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+  event.preventDefault();
+});
+
+$("#needs-followup").on("click", function(event) {
+  $(this).val() = true;
+  event.preventDefault();
+  var id = $(this).data("id");
+  var followup = $(this).val();
+
+  var followupNeeded = {
+    value: followup
+  }
+  
+  API.updateReferral($(this).id, followupNeeded);
 })
+
+});

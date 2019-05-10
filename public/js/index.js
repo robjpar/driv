@@ -117,12 +117,18 @@ $(document).on('click', '#logout-button', () => {
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   // event.preventDefault();
+
+  if ($hospitals.val() === null) {
+    return $hospitals
+  } else {
+    $hospitals = $hospitals.val().trim()
+  }
   
   var userRequest = {
     referralType: $referralInformation.val().trim(),
     ageMin: parseInt($ageMin.val()),
     ageMax: parseInt($ageMax.val()),
-    hospitals: $hospitals.val().trim(),
+    hospitals: $hospitals,
     // needsFollowup: $needsFollowup.val().trim(),
   };
 
@@ -137,8 +143,8 @@ var handleFormSubmit = function(event) {
     // var closingtr = $("</tr>");
     // var displayInfo = [];
 
+
       for (var i = 0; i < data.length; i++) {
-        console.log(data[i]);
         var referralId = data[i].donorId;
         var referralType = data[i].referralType;
         var minAge = data[i].minAge;

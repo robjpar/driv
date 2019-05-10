@@ -234,9 +234,7 @@ $(document).ready(() => {
         }
       });;
     }, 500);
-    
-  }
-});
+  };
 
 $submitBtn.on('click', function(event) {
   event.preventDefault();
@@ -258,6 +256,19 @@ $submitBtn.on('click', function(event) {
 })
 
 // Export Table
-$("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});   
-$("#tableCompany").tableHTMLExport({type:'csv',filename:'tablaLicencias.csv',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
-$("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+$('#json').on('click', function(event) {
+  $("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+  event.preventDefault();
+});
+
+$('#csv').on('click', function(event) {
+  $("#tableCompany").tableHTMLExport({type:'csv',filename:'tablaLicencias.csv',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});  
+  event.preventDefault();
+});
+
+$('#pdf').on('click', function(event) {
+  $("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+  event.preventDefault();
+});
+
+});

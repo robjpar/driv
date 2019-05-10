@@ -211,6 +211,7 @@ $('#pdf').on('click', function(event) {
 
 $('#clear').on('click', function(event) {
   $("#referral-info").empty();
+  event.preventDefault();
 })
 
 $(document).on("click", ".case-followup", function(event) {

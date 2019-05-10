@@ -70,6 +70,9 @@ module.exports = function(app) {
 
   // /api/donors?donor_id=R1902502
   //            &ref_type=TE
+  //            &min_age=5
+  //            &max_age=50
+  //            &follow_up=yes | no
   //            &org=Good+Samaritan+Medical+Center+-+Corvallis
   app.get('/api/donors', function(req, res) {
     if (!req.user) { // user not logged in
@@ -78,6 +81,12 @@ module.exports = function(app) {
       const where = {};
       if (req.query.donor_id) where.donorId = req.query.donor_id;
       if (req.query.ref_type) where.referralType = req.query.ref_type;
+      const ageRange = [0, 1000];
+      if (req.query.min_age) ageRange[0] = Number.parseInt(req.query.min_age);
+      if (req.query.max_age) ageRange[1] = Number.parseInt(req.query.max_age);
+      where.age = {$between: ageRange};
+      if (req.query.follow_up === 'yes') where.isFollowUp = true;
+      if (req.query.follow_up === 'no') where.isFollowUp = false;
 
       const inclWhere = {};
       if (req.query.org) inclWhere.name = req.query.org;
@@ -95,7 +104,7 @@ module.exports = function(app) {
   });
 
   // /api/organizations?name=Good+Samaritan+Medical+Center+-+Corvallis
-  //                   &list=donors
+  //                   &donors=yes
   app.get('/api/organizations', function(req, res) {
     if (!req.user) { // user not logged in
       res.status(401).send('401 Unauthorized'); // status 401 Unauthorized
@@ -103,7 +112,7 @@ module.exports = function(app) {
       const where = {};
       if (req.query.name) where.name = req.query.name;
 
-      const include = req.query.list === 'donors' ? [db.Donor] : undefined;
+      const include = req.query.donors === 'yes' ? [db.Donor] : undefined;
 
       db.Organization.findAll({
         where,

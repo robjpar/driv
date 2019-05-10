@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     isFollowUp: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      default: false
+      defaultValue: false
     }
   });
 

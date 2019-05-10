@@ -10,7 +10,7 @@ const parser = csv.parse({
 const transform = csv.transform(function(row) {
 
   const donor = {
-    donorId: row['﻿EyeDonorId'],
+    donorId: row['EyeDonorId'],
     referralType: row['Referral Type'],
     referredOn: new Date(row['ReferredOn']),
     age: row['Age'],

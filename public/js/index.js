@@ -225,12 +225,14 @@ $(document).on("click", ".case-followup", function(event) {
     followup = "no"
   }
   
-  console.log($(this).data("id"));
+  console.log($(this).attr("id"));
 
   var followupNeeded = {
     donorId: id,
     isFollowUp: followup
   }
+
+  console.log(followupNeeded);
   
   API.updateReferral(followupNeeded);
 });

@@ -146,9 +146,11 @@ var handleFormSubmit = function(event) {
         var referralType = data[i].referralType;
         var age = data[i].age;
         var organization = data[i].Organization.name;
+        var needsFollowup = data[i].isFollowUp;
+        var checked = needsFollowup ? 'checked' : '';
         // var $checkbox = $('<input class="form-check-input needs-followup" type="checkbox" value=false id="'+ referralId + '">')
         
-        $referralData.append($('<tr><td>'+ referralId + '</td><td>' + referralType + '</td><td>' + age + '</td><td>' + organization + '</td><td><input class="form-check-input case-followup" type="checkbox" value=false id="'+ referralId + '"></td></tr>'));
+        $referralData.append($('<tr><td>'+ referralId + '</td><td>' + referralType + '</td><td>' + age + '</td><td>' + organization + '</td><td><input class="form-check-input case-followup" type="checkbox" value=false ' + checked + ' id="'+ referralId + '"></td></tr>'));
         // $referralData.append(tr, td, referralId, closingtd, td, referralType, closingtd, td, age, closingtd, td, organization, closingtd, td, $checkbox, closingtd, closingtr)
         
         // displayInfo.push(referralId, referralType, age, organization, $checkbox);

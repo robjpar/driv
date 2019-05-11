@@ -195,17 +195,17 @@ $submitBtn.on('click', function(event) {
 
 // Export Table
 $('#json').on('click', function(event) {
-  $("#tableCompany").tableHTMLExport({type:'json',filename:'tablaLicencias.json',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+  $("#donorTable").tableHTMLExport({type:'json',filename:'donotTable.json',ignoreColumns:'',ignoreRows: ''});
   event.preventDefault();
 });
 
 $('#csv').on('click', function(event) {
-  $("#tableCompany").tableHTMLExport({type:'csv',filename:'tablaLicencias.csv',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});  
+  $("#donorTable").tableHTMLExport({type:'csv',filename:'donorTable.csv',ignoreColumns:'',ignoreRows: ''});  
   event.preventDefault();
 });
 
 $('#pdf').on('click', function(event) {
-  $("#tableCompany").tableHTMLExport({type:'pdf',filename:'tablaLicencias.pdf',ignoreColumns:'.acciones,#primero',ignoreRows: '#ultimo'});
+  $("#donorTable").tableHTMLExport({type:'pdf',filename:'donorTable.pdf',ignoreColumns:'',ignoreRows: ''});
   event.preventDefault();
 });
 

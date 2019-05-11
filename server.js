@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'test') {
   syncOptions.force = true;
 }
 
-
+var csvImporter = require('./importCSV/importCSV.js');
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
@@ -73,6 +73,9 @@ db.sequelize.sync(syncOptions).then(function() {
       admin: 0
     }
   });
+
+  csvImporter('./importCSV/sample-data.csv', db);
+  
   app.listen(PORT, function() {
     console.log('Go to http://localhost:3000/ to see where the magic happens');
   });

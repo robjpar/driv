@@ -40,21 +40,42 @@ if (process.env.NODE_ENV === 'test') {
   syncOptions.force = true;
 }
 
-
+var csvImporter = require('./importCSV/importCSV.js');
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
   // add initial admin user
-  db.User.create({
-    email: 'admin@admin.com',
-    password: '77!*zxc',
-    admin: 1
+  // db.User.create({
+  //   email: 'admin@admin.com',
+  //   password: '77!*zxc',
+  //   admin: 1
+  // });
+  db.User.findOrCreate({
+    where: {
+      email: 'admin@admin.com'
+    },
+    defaults: {
+      password: '77!*zxc',
+      admin: 1
+    }
   });
-  db.User.create({
-    email: 'ryan@test.com',
-    password: '1234',
-    admin: 0
+  // db.User.create({
+  //   email: 'ryan@test.com',
+  //   password: '1234',
+  //   admin: 0
+  // });
+  db.User.findOrCreate({
+    where: {
+      email: 'ryan@test.com'
+    },
+    defaults: {
+      password: '1234',
+      admin: 0
+    }
   });
+
+  csvImporter('./importCSV/sample-data.csv', db);
+  
   app.listen(PORT, function() {
     console.log('Go to http://localhost:3000/ to see where the magic happens');
   });

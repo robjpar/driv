@@ -221,7 +221,7 @@ $(document).on("click", ".case-followup", function(event) {
 
   if ($(".case-followup").prop("checked")) {
     followup = "yes"
-  } else {
+  } else if (($(".case-followup").prop("checked")) === false) {
     followup = "no"
   }
   

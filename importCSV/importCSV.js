@@ -1,8 +1,8 @@
 const fs = require('fs');
 const csv = require('csv');
-const db = require('../models');
 
-const input = fs.createReadStream('./sample-data.csv');
+module.exports = function(csvFileName, db) {
+const input = fs.createReadStream(csvFileName);
 const parser = csv.parse({
   columns: true
 });
@@ -52,3 +52,4 @@ const transform = csv.transform(function(row) {
 });
 
 input.pipe(parser).pipe(transform);
+};

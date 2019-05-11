@@ -36,8 +36,16 @@ const transform = csv.transform(function(row) {
       console.log(`>>> Created an organization, name: ${results.name}`);
     }
     donor.OrganizationId = results.id;
-    db.Donor.create(donor).then(function(results2) {
-      console.log(`>>> Created a donor, donorId: ${results2.donorId}`);
+
+    db.Donor.findOrCreate({
+      where: {
+        donorId: donor.donorId
+      },
+      defaults: donor
+    }).then(function([results, created]) {
+      if (created) {
+        console.log(`>>> Created a donor, donorId: ${results.donorId}`);
+      }
     });
   });
 

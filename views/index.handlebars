@@ -11,105 +11,105 @@
 </div>
 
 {{!-- <span id="to-hide"> --}}
-  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark text-light justify-content-between">
-    <img id="drivloginimg" src="/styles/drivlogo.png">
-    <div id="index-nav"></div>
-  </nav>
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark text-light justify-content-between">
+  <img id="drivloginimg" src="/styles/drivlogo.png">
+  <div id="index-nav"></div>
+</nav>
 
-  <div id="indexcontainer" class="container p-3 shadow-sm">
+<div id="indexcontainer" class="container p-3 shadow-sm">
 
-    <div class="row">
-      <div class="col">
-        <h4>Select your criteria and click "Search"</h4>
-      </div>
+  <div class="row">
+    <div class="col">
+      <h4>Select your criteria and click "Search"</h4>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 border-right border-info">
-        <form>
-          <div>
-            <h5>Referral Type</h5>
-            <div class="form-group">
-              <select class="form-control" id="referral-type">
-                <option value="">Select a Referral Type</option>
-                <option>OTE</option>
-                <option>TE</option>
-                <option>E</option>
-                <option>RO</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <h5>Enter Age</h5>
-            <div class="row">
-              <div class="form-group col">
-                <input class="form-control" type="number" value="" id="min-age-input" placeholder="Minimum">
-              </div>
-              <div class="form-group col">
-                <input class="form-control" type="number" value="" id="max-age-input" placeholder="Maximum">
-              </div>
-            </div>
-          </div>
-          <h5>Follow-up</h5>
-          <div class="form-check mb-2" id="followup">
-            <input class="form-check-input" type="checkbox" value="" id="needs-followup">
-            <label class="form-check-label" for="needs-followup">
-              Include cases that need follow-up?
-            </label>
-          </div>
-
-          {{!-- DROP DOWN TEST --}}
-          <div>
-            <h5>Choose Hospital</h5>
-            <select id="hospitalchoice" class="mdb-select colorful-select dropdown-info">
-              <option value="">Select a Hospital</option>
-              <div id="hospitallist"></div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 border-right border-info">
+      <form>
+        <div>
+          <h5>Referral Type</h5>
+          <div class="form-group">
+            <select class="form-control" id="referral-type">
+              <option value="">Select a Referral Type</option>
+              <option>OTE</option>
+              <option>TE</option>
+              <option>E</option>
+              <option>RO</option>
             </select>
           </div>
-          {{!-- DROP DOWN TEST --}}
-          <button id="submit" class="btn btn-sm btn-info mt-2">Search</button>
-        </form>
-      </div>
-
-      <div id="searchdiv" class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-        <h5>Search Results</h5>
-          {{!-- Test Table --}}
-          <div class="table-responsive">
-              <table id="donorTable" class="table table-striped table-bordered table-sm">
-                <thead class="thead-dark">
-                  <tr>
-                    <th class-"reffnum">Referral Number</th>
-                    <th class-"refftyp">Referral Type</th>
-                    <th class-"age">Age</th>
-                    <th class-"org">Organization</th>
-                    <th class-"followup">Does Case Need Follow-up?</th>
-                  </tr>    
-                </thead>
-                <tbody id="referral-info">
-                </tbody>
-              </table>
-          </div>
-{{!-- Endof test table --}}
-
-        <div>
-          <p class="lead">
-            <h5>Export Report to:</h5>
-            <button id="json" class="btn btn-info btn-sm">JSON</button>
-            <button id="csv" class="btn btn-info btn-sm">CSV</button>
-            <button id="pdf" class="btn btn-info btn-sm">PDF</button>
-            <button id="clear" class="btn btn-info btn-sm float-right">Clear Results</button>
-          </p>
         </div>
+        <div>
+          <h5>Enter Age</h5>
+          <div class="row">
+            <div class="form-group col">
+              <input class="form-control" type="number" value="" id="min-age-input" placeholder="Minimum">
+            </div>
+            <div class="form-group col">
+              <input class="form-control" type="number" value="" id="max-age-input" placeholder="Maximum">
+            </div>
+          </div>
+        </div>
+        <h5>Follow-up</h5>
+        <div class="form-check mb-2" id="followup">
+          <input class="form-check-input" type="checkbox" value="" id="needs-followup">
+          <label class="form-check-label" for="needs-followup">
+            Include cases that need follow-up?
+          </label>
+        </div>
+
+        {{!-- DROP DOWN TEST --}}
+        <div>
+          <h5>Choose Hospital</h5>
+          <select id="hospitalchoice" class="mdb-select colorful-select dropdown-info">
+            <option value="">Select a Hospital</option>
+            <div id="hospitallist"></div>
+          </select>
+        </div>
+        {{!-- DROP DOWN TEST --}}
+        <button id="submit" class="btn btn-sm btn-info mt-2">Search</button>
+      </form>
+    </div>
+
+    <div id="searchdiv" class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+      <h5>Search Results</h5>
+      {{!-- Test Table --}}
+      <div class="table-responsive">
+        <table id="donorTable" class="table table-striped table-bordered table-sm">
+          <thead class="thead-dark">
+            <tr>
+              <th class-"reffnum">Referral Number</th>
+              <th class-"refftyp">Referral Type</th>
+              <th class-"age">Age</th>
+              <th class-"org">Organization</th>
+              <th class-"followup">Does Case Need Follow-up?</th>
+            </tr>
+          </thead>
+          <tbody id="referral-info">
+          </tbody>
+        </table>
+      </div>
+      {{!-- Endof test table --}}
+
+      <div>
+        <p class="lead">
+          <h5>Export Report to:</h5>
+          <button id="json" class="btn btn-info btn-sm">JSON</button>
+          <button id="csv" class="btn btn-info btn-sm">CSV</button>
+          <button id="pdf" class="btn btn-info btn-sm">PDF</button>
+          <button id="clear" class="btn btn-info btn-sm float-right">Clear Results</button>
+        </p>
       </div>
     </div>
+  </div>
 </div>
 
 {{!-- </span> --}}
 
 <div class="modal" id="myModal">
-{{!-- <div class="modal" tabindex="-1" role="dialog" id="error-modal"> --}}
+  {{!-- <div class="modal" tabindex="-1" role="dialog" id="error-modal"> --}}
   <div class="modal-dialog modal-dialog-centered">
-  {{!-- <div class="modal-dialog" role="document"> --}}
+    {{!-- <div class="modal-dialog" role="document"> --}}
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Modal title</h5>
@@ -118,7 +118,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p id="user-input">It looks like the age range is not correct. Please make sure to only enter numbers between 0 and 80.</p>
+        <p id="user-input">It looks like the age range is not correct. Please make sure to only enter numbers between 0
+          and 80.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

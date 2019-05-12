@@ -1,24 +1,26 @@
 .card-newuser {
-    border: 0;
-    border-radius: 1rem;
-  }
-  .card-newuser .card-title {
-    margin-bottom: 2rem;
-    font-weight: 300;
-    font-size: 1.5rem;
-  }
-  .card-newuser .card-body {
-    padding: 2rem;
-    background: #b3e3fc;
-  }
- 
-  #drivloginimg {
-    height: 75px;
-  }
-  
-  /* new user form css */
-  #new-user-form {
-    background: #343a40;
-    padding: 40px 25px;
-    border-radius: 25px;
-  }
+  border: 0;
+  border-radius: 1rem;
+}
+
+.card-newuser .card-title {
+  margin-bottom: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.card-newuser .card-body {
+  padding: 2rem;
+  background: #b3e3fc;
+}
+
+#drivloginimg {
+  height: 75px;
+}
+
+/* new user form css */
+#new-user-form {
+  background: #343a40;
+  padding: 40px 25px;
+  border-radius: 25px;
+}

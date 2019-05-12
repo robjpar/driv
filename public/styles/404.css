@@ -1,34 +1,34 @@
 body {
-    background-color: #73c9f5
+  background-color: #73c9f5
 }
 
 #driv404 {
-    height: 75px;
+  height: 75px;
 }
 
 .center {
-   display: block;
-   margin-left: auto;
-   margin-right: auto;
-   width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .card-body {
-    background: #b3e3fc;
+  background: #b3e3fc;
 }
 
 a:link {
-    color: #ffffff;
+  color: #ffffff;
 }
-  
+
 a:visited {
-   color: #ffffff;
+  color: #ffffff;
 }
-  
+
 a:hover {
-   color: #ffffff;
+  color: #ffffff;
 }
 
 a:active {
-   color: blue;
+  color: blue;
 }

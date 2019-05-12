@@ -1,6 +1,7 @@
 const fs = require('fs');
 const csv = require('csv');
 
+// CSV data importer
 module.exports = function(csvFileName, db) {
   const input = fs.createReadStream(csvFileName);
   const parser = csv.parse({

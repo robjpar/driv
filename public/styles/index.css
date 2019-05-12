@@ -1,21 +1,21 @@
 #indexcontainer {
-    background-color: #b3e3fc;
-    min-height: 90vh;
-    max-height: 90vh;
-    overflow: auto;
+  background-color: #b3e3fc;
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow: auto;
 }
 
 #hospitalchoice {
-    width: 100%;
+  width: 100%;
 }
 
 .lds-roller {
-    color: white;
-    margin: 15% 200px;
+  color: white;
+  margin: 15% 200px;
 }
 
 table {
-    table-layout: fixed;
-    text-align: center;
-    font-size: .85em;
+  table-layout: fixed;
+  text-align: center;
+  font-size: .85em;
 }

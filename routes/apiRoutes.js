@@ -34,19 +34,20 @@ module.exports = function(app) {
       // res.status(422).json(err.errors[0].message);
     });
   });
+
   // Route for logging user out
-  app.get('/logout', function (req, res) {
+  app.get('/logout', function(req, res) {
     req.logout();
     req.session.destroy();
     res.redirect("/login");
   });
+
   // Route for getting some data about our user to be used client side
   app.get('/api/user_data', function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
-    }
-    else {
+    } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
@@ -55,19 +56,22 @@ module.exports = function(app) {
       });
     }
   });
-  // route for checking if user is admin at index page
-  app.post('/check-if-admin', (req,res) => {
+
+  // Route for checking if user is admin at index page
+  app.post('/check-if-admin', (req, res) => {
     // console.log('request recieved');
     // console.log(req.body.id);
     return db.User.findOne({
-      where: {email: req.body.id},
+      where: {
+        email: req.body.id
+      },
     }).then(project => {
       // true if admin, false if not
       console.log(project.dataValues.admin);
       res.json(project.dataValues.admin)
-    })
-  })
-
+    });
+  });
+  // API route for querying the database. Example of a GET call:
   // /api/donors?donor_id=R1902502
   //            &ref_type=TE
   //            &min_age=5
@@ -84,7 +88,9 @@ module.exports = function(app) {
       const ageRange = [0, 1000];
       if (req.query.min_age) ageRange[0] = Number.parseInt(req.query.min_age);
       if (req.query.max_age) ageRange[1] = Number.parseInt(req.query.max_age);
-      where.age = {$between: ageRange};
+      where.age = {
+        $between: ageRange
+      };
       if (req.query.follow_up === 'yes') where.isFollowUp = true;
       if (req.query.follow_up === 'no') where.isFollowUp = false;
 
@@ -103,10 +109,12 @@ module.exports = function(app) {
     }
   });
 
+  // API route for updating the followup requirement in the database. Example
+  // of a PUT call:
   // /api/donors
   // reg.body = {
-  //     donorId: R1902502,
-  //     isFollowUp: "yes"
+  //   donorId: R1902502,
+  //   isFollowUp: "yes"
   // }
   app.put("/api/donors", function(req, res) {
     if (!req.user) { // user not logged in
@@ -129,6 +137,7 @@ module.exports = function(app) {
     }
   });
 
+  // API route for querying the database. Example of a GET call:
   // /api/organizations?name=Good+Samaritan+Medical+Center+-+Corvallis
   //                   &donors=yes
   app.get('/api/organizations', function(req, res) {
@@ -148,5 +157,4 @@ module.exports = function(app) {
       });
     }
   });
-
 };

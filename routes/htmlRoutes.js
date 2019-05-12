@@ -9,10 +9,10 @@ module.exports = function(app) {
       res.redirect('/login');
     }
   });
-  app.get('/login', (req,res) => {
+  app.get('/login', (req, res) => {
     res.render('login');
   });
-  app.get('/new-user', (req,res) => {
+  app.get('/new-user', (req, res) => {
     if (req.user) {
       res.render('new-user');
     } else {

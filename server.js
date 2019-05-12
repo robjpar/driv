@@ -4,17 +4,25 @@ var app = express();
 var passport = require('./config/passport/passport');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
-
 var db = require('./models');
+var csvImporter = require('./importCSV/importCSV.js');
+
+// Server port
 var PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 app.use(express.static('public'));
 
-// For Passport
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
+// Passport.js
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -31,8 +39,10 @@ app.set('view engine', 'handlebars');
 require('./routes/apiRoutes')(app);
 require('./routes/htmlRoutes')(app);
 
-
-var syncOptions = { force: false };
+// Sync options
+var syncOptions = {
+  force: false
+};
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -40,16 +50,9 @@ if (process.env.NODE_ENV === 'test') {
   syncOptions.force = true;
 }
 
-var csvImporter = require('./importCSV/importCSV.js');
-
-// Starting the server, syncing our models ------------------------------------/
+// Sync the models and start the server
 db.sequelize.sync(syncOptions).then(function() {
-  // add initial admin user
-  // db.User.create({
-  //   email: 'admin@admin.com',
-  //   password: '77!*zxc',
-  //   admin: 1
-  // });
+  // Add initial admins
   db.User.findOrCreate({
     where: {
       email: 'admin@admin.com'
@@ -59,11 +62,6 @@ db.sequelize.sync(syncOptions).then(function() {
       admin: 1
     }
   });
-  // db.User.create({
-  //   email: 'ryan@test.com',
-  //   password: '1234',
-  //   admin: 0
-  // });
   db.User.findOrCreate({
     where: {
       email: 'ryan@test.com'
@@ -74,8 +72,10 @@ db.sequelize.sync(syncOptions).then(function() {
     }
   });
 
+  // Import initial data from a csv file
   csvImporter('./importCSV/sample-data.csv', db);
-  
+
+  // Start the server
   app.listen(PORT, function() {
     console.log('Go to http://localhost:3000/ to see where the magic happens');
   });

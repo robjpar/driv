@@ -55,19 +55,10 @@ db.sequelize.sync(syncOptions).then(function() {
   // Add initial admins
   db.User.findOrCreate({
     where: {
-      email: 'admin@admin.com'
+      email: 'demo@demo.app'
     },
     defaults: {
-      password: '77!*zxc',
-      admin: 1
-    }
-  });
-  db.User.findOrCreate({
-    where: {
-      email: 'ryan@test.com'
-    },
-    defaults: {
-      password: '1234',
+      password: 'demo',
       admin: 0
     }
   });

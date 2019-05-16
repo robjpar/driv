@@ -26,7 +26,7 @@ Donor Referral Information Viewer Web Application
 
 ## How to use
 
-Access the deployed website though this link [D.R.I.V](https://donor-referral-info-viewer.herokuapp.com/). Use the following login credentials to access the demo of the application
+Access the deployed website though this link [D.R.I.V](https://referral-information-viewer.herokuapp.com/). Use the following login credentials to access the demo of the application
 
 ```text
 email:    demo@demo.app

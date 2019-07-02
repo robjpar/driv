@@ -21,7 +21,7 @@ D.R.I.V. is a web application which allows registered users to use a single inte
 
 ## Installation
 
-Access the deployed website though this link [D.R.I.V](https://referral-information-viewer.herokuapp.com/). Use the following login credentials to access the demo of the application
+No installation is needed. Access the deployed website with a web browser through this link [D.R.I.V](https://referral-information-viewer.herokuapp.com/). Use the following login credentials to access the demo of the application
 
 ```text
 email:    demo@demo.app

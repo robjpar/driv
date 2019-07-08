@@ -1,5 +1,7 @@
 # D.R.I.V &mdash; Donor Referral Information Viewer
 
+by Krystal Christensen-Wiederrich, Damon Gregory, Ryan Grunest & Robert Paruch
+
 ![driv](images/driv.png 'driv')
 
 D.R.I.V. is a web application which allows registered users to use a single interface to request donor information records across three spheres of databases: eyes, internal organs, and skin. It allows users from partner organizations to log in and filter data based on specific criteria. It allows them to organize the data in a user-friendly application, mark cases needing follow-up, and export them to a PDF document or a CSV file.

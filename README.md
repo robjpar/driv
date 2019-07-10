@@ -16,6 +16,7 @@ D.R.I.V. is a web application which allows registered users to use a single inte
 
 ## Technologies & Frameworks
 
+- HTML, CSS, Bootstrap
 - JavaScript, AJAX, RESTful API
 - Node.js, Express, Handlebars
 - MySql, Sequelize ORM
